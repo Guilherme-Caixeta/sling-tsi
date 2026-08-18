@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Sling TSi — Peso & Balanço (Weight & Balance)
+Sling TSi — Peso & Balanceamento (Weight & Balance)
 
-Replica em Python (Tkinter, sem dependencias externas) da secao "Peso & Balanco"
+Replica em Python (Tkinter, sem dependencias externas) da secao "Peso & Balanceamento"
 do planejador em https://slingaircraft.app/tsi/planejador
 
 Calculos e constantes extraidos do proprio bundle da pagina (calcWBResult /
@@ -316,13 +316,13 @@ def build_print_html(values: dict, res: "WBResult", land: "WBResult",
         f"<td>{land.cg_mm:.0f}</td>"
         f"<td>{fmt(land.cg_mm * land.total / 1000)}</td></tr>")
 
-    titulo = "Sling TSi &mdash; Peso &amp; Balanço"
+    titulo = "Sling TSi &mdash; Peso &amp; Balanceamento"
     perfil = f"Perfil: {esc(profile_name)}" if profile_name else "Perfil: &mdash;"
     quando = datetime.now().strftime("%d/%m/%Y %H:%M")
 
     return f"""<!DOCTYPE html>
 <html lang="pt-BR"><head><meta charset="utf-8">
-<title>Peso e Balanço &mdash; Sling TSi</title>
+<title>Peso e Balanceamento &mdash; Sling TSi</title>
 <style>{PRINT_CSS}</style></head><body>
 <div class="noprint"><button onclick="window.print()">Imprimir</button></div>
 <header>
@@ -413,7 +413,7 @@ def run_gui(prefill: dict[str, float] | None = None) -> None:
     prefill = prefill or {}
 
     root = tk.Tk()
-    root.title("Sling TSi · Peso & Balanço")
+    root.title("Sling TSi · Peso & Balanceamento")
     root.configure(bg=C_BG)
     root.minsize(820, 620)
     screen_h = root.winfo_screenheight()
@@ -486,7 +486,7 @@ def run_gui(prefill: dict[str, float] | None = None) -> None:
     # ── titlebar ────────────────────────────────────────────────────
     bar = tk.Frame(wrap, bg=C_BG)
     bar.pack(fill="x", pady=(4, 16))
-    tk.Label(bar, text=_spaced("PESO & BALANÇO", " "), font=f_h1,
+    tk.Label(bar, text=_spaced("PESO & BALANCEAMENTO", " "), font=f_h1,
              fg=C_TEXT, bg=C_BG).pack(side="left")
     tk.Label(bar, text="—", font=f_h1, fg=C_RED, bg=C_BG).pack(side="left", padx=8)
 
@@ -1275,7 +1275,7 @@ def run_cli(args: argparse.Namespace) -> None:
     ]
     land = calc_landing(res, args.consumo, args.duracao)
 
-    print("\n  SLING TSi — PESO & BALANCO\n")
+    print("\n  SLING TSi — PESO & BALANCEAMENTO\n")
     print(f"  {'Item':<30}{'Peso (kg)':>11}{'Braco (mm)':>12}{'Momento (kg.m)':>16}")
     print("  " + "-" * 69)
     for name, kg, arm in rows:
@@ -1309,7 +1309,7 @@ def run_cli(args: argparse.Namespace) -> None:
 
 def main() -> int:
     p = argparse.ArgumentParser(
-        description="Sling TSi — Peso & Balanco (replica do planejador web)")
+        description="Sling TSi — Peso & Balanceamento (replica do planejador web)")
     p.add_argument("--cli", action="store_true", help="calcula no terminal, sem GUI")
     p.add_argument("--empty-kg", type=float, default=DEFAULT_EMPTY_KG,
                    help=f"peso vazio em kg (padrao {DEFAULT_EMPTY_KG:.0f})")
