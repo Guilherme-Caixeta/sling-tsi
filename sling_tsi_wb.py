@@ -415,6 +415,14 @@ def run_gui(prefill: dict[str, float] | None = None) -> None:
     root = tk.Tk()
     root.title("Sling TSi · Peso & Balanceamento")
     root.configure(bg=C_BG)
+
+    icon = Path(__file__).with_name("logo.ico")
+    if icon.exists():                     # mesmo icone do Leitor de Checklist
+        try:
+            root.iconbitmap(default=str(icon))
+        except tk.TclError:
+            pass
+
     root.minsize(820, 620)
     screen_h = root.winfo_screenheight()
     root.geometry(f"880x{min(1020, max(640, screen_h - 90))}+80+20")

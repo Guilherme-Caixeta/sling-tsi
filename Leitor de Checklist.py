@@ -45,7 +45,8 @@ except ImportError:                   # pragma: no cover
 # ══════════════════════════════════════════════════════════════════════
 CHECKLIST_PATH = Path(__file__).with_name("Checklists-PB.json")
 SETTINGS_PATH = Path(__file__).with_name("settings.json")
-LOGO_PATH = Path(__file__).with_name("Logo Sling TSI.png")
+LOGO_PATH = Path(__file__).with_name("Sling TSI.png")
+ICON_PATH = Path(__file__).with_name("logo.ico")
 WB_APP_PATH = Path(__file__).with_name("sling_tsi_wb.py")
 
 URL_REDEMET = "https://redemet-app.decea.mil.br/"
@@ -75,6 +76,7 @@ C_NOTE_BG = "#1b1216"         # fundo do aviso, como as notas do planejador
 
 PAD_X = 16                    # respiro lateral da pagina
 WRAP_LENGTH = 900             # quebra de linha dos textos longos
+LOGO_HEIGHT = 36              # altura do logotipo no cabecalho inicial
 
 
 def _spaced(text: str, gap: str = " ") -> str:
@@ -315,6 +317,33 @@ def open_weight_balance(status: tk.Label | None = None) -> None:
 # ══════════════════════════════════════════════════════════════════════
 #  WIDGETS DE BASE  (equivalentes aos do planejador)
 # ══════════════════════════════════════════════════════════════════════
+def load_logo(height: int) -> Any:
+    """Logotipo redimensionado para `height` px, ou None se nao der para usar.
+
+    Sem Pillow (ou sem o arquivo) o cabecalho volta ao titulo em texto.
+    """
+    if Image is None or ImageTk is None or not LOGO_PATH.exists():
+        return None
+    try:
+        img = Image.open(LOGO_PATH).convert("RGBA")
+        w, h = img.size
+        img = img.resize((max(1, round(w * height / h)), height),
+                         Image.Resampling.LANCZOS)
+        return ImageTk.PhotoImage(img)
+    except (OSError, ValueError):
+        return None
+
+
+def apply_icon(window: tk.Tk) -> None:
+    """Icone da janela. `default` vale tambem para as caixas de dialogo."""
+    if not ICON_PATH.exists():
+        return
+    try:
+        window.iconbitmap(default=str(ICON_PATH))
+    except tk.TclError:
+        pass
+
+
 def flash(label: tk.Label | None, text: str, ok: bool = True,
           delay: int = 3000) -> None:
     """Mensagem temporaria no rodape, verde quando deu certo."""
@@ -397,12 +426,21 @@ def section(parent: tk.Misc, title: str | None, bg: str = C_PANEL,
 
 
 def title_bar(window: tk.Tk, title: str,
-              on_back: Callable[[], None] | None = None) -> tk.Frame:
-    """Cabecalho da pagina: voltar opcional, titulo espacado e travessao."""
+              on_back: Callable[[], None] | None = None,
+              image: Any = None) -> tk.Frame:
+    """Cabecalho da pagina: voltar opcional e o titulo — em logotipo, quando
+    `image` vem preenchido, senao espacado em texto com o travessao."""
     bar = tk.Frame(window, bg=C_BG)
     bar.pack(fill="x", padx=PAD_X, pady=(14, 14))
     if on_back is not None:
         ghost_button(bar, "‹  Voltar", on_back).pack(side="left", padx=(0, 14))
+
+    if image is not None:
+        logo = tk.Label(bar, image=image, bg=C_BG)
+        logo.image = image        # type: ignore[attr-defined]  (segura o GC)
+        logo.pack(side="left")
+        return bar
+
     tk.Label(bar, text=_spaced(title.upper()), font=F["h1"], fg=C_TEXT,
              bg=C_BG).pack(side="left")
     tk.Label(bar, text="—", font=F["h1"], fg=C_RED,
@@ -562,20 +600,7 @@ def show_main_menu(window: tk.Tk, data: dict[str, Any]) -> None:
     clear_window(window)
     window.title("Sling TSi · Aplicativos")
 
-    bar = title_bar(window, "Sling TSi")
-
-    if Image is not None and ImageTk is not None and LOGO_PATH.exists():
-        try:
-            img = Image.open(LOGO_PATH)
-            w, h = img.size
-            target_h = 40
-            img = img.resize((int(w * target_h / float(h)), target_h))
-            logo = ImageTk.PhotoImage(img)
-            logo_label = tk.Label(bar, image=logo, bg=C_BG)
-            logo_label.image = logo   # type: ignore[attr-defined]  (segura o GC)
-            logo_label.pack(side="right")
-        except (OSError, ValueError):
-            pass
+    title_bar(window, "Sling TSi", image=load_logo(LOGO_HEIGHT))
 
     content, _ = scroll_area(window)
 
@@ -877,6 +902,7 @@ def main() -> int:
     window = tk.Tk()
     window.title("Sling TSi · Aplicativos")
     window.configure(bg=C_BG)
+    apply_icon(window)
     window.minsize(880, 620)
     screen_h = window.winfo_screenheight()
     window.geometry(f"1120x{min(1020, max(640, screen_h - 90))}+80+20")
