@@ -1,0 +1,26 @@
+{
+  "4 familia": {
+    "consumo": "28",
+    "duracao": "3",
+    "empty_kg": "561",
+    "empty_cg": "1909",
+    "pilot": "75",
+    "copilot": "60",
+    "pax3": "55",
+    "pax4": "50",
+    "baggage": "10",
+    "fuel": "192"
+  },
+  "Instrução": {
+    "consumo": "28",
+    "duracao": "7",
+    "empty_kg": "561",
+    "empty_cg": "1909",
+    "pilot": "75",
+    "copilot": "80",
+    "pax3": "",
+    "pax4": "",
+    "baggage": "10",
+    "fuel": "198"
+  }
+}

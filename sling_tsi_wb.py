@@ -18,8 +18,10 @@ Uso:
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from dataclasses import dataclass
+from pathlib import Path
 
 # ══════════════════════════════════════════════════════════════════════
 #  CONSTANTES TSi  — espelham as do site (todos os bracos em mm do datum)
@@ -73,6 +75,29 @@ class WBResult:
         return not self.overweight and not self.cg_oob
 
 
+def calc_landing(res: "WBResult", cons_lh: float, dur_h: float) -> "WBResult":
+    """Peso e CG ao fim do voo: queima `cons_lh * dur_h` litros do tanque.
+
+    O braco do combustivel (1800 mm) fica a frente do CG tipico, entao o CG
+    anda para tras conforme o tanque esvazia — por isso o limite aft costuma
+    ser critico no pouso, nao na decolagem.
+    """
+    burn_kg = cons_lh * dur_h * FUEL_DENSITY
+    fuel_kg = res.fuel_kg - burn_kg
+    total = res.total - burn_kg
+    moment = res.moment - burn_kg * ARM_FUEL
+    cg_mm = moment / total if total > 0 else ARM_EMPTY
+    return WBResult(
+        total=total,
+        cg_mm=cg_mm,
+        p_mac=((cg_mm - MAC_LE_MM) / MAC_LEN_MM) * 100.0,
+        fuel_kg=fuel_kg,
+        moment=moment,
+        overweight=total > MTOW_TSI,
+        cg_oob=cg_mm < CG_FWD_MM or cg_mm > CG_AFT_MM,
+    )
+
+
 def calc_wb(empty_kg: float = DEFAULT_EMPTY_KG,
             empty_cg_mm: float = DEFAULT_EMPTY_CG_MM,
             pilot: float = 0.0,
@@ -100,6 +125,32 @@ def calc_wb(empty_kg: float = DEFAULT_EMPTY_KG,
         overweight=total > MTOW_TSI,
         cg_oob=cg_mm < CG_FWD_MM or cg_mm > CG_AFT_MM,
     )
+
+
+# ══════════════════════════════════════════════════════════════════════
+#  PERFIS SALVOS
+# ══════════════════════════════════════════════════════════════════════
+PROFILES_PATH = Path(__file__).with_name("perfis_wb.json")
+
+# campos gravados em cada perfil (ordem = ordem na tela)
+PROFILE_FIELDS = ("consumo", "duracao", "empty_kg", "empty_cg", "pilot",
+                  "copilot", "pax3", "pax4", "baggage", "fuel")
+
+
+def load_profiles() -> dict[str, dict[str, str]]:
+    """Le perfis_wb.json. Arquivo ausente ou corrompido -> dicionario vazio."""
+    try:
+        data = json.loads(PROFILES_PATH.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    if not isinstance(data, dict):
+        return {}
+    return {str(k): v for k, v in data.items() if isinstance(v, dict)}
+
+
+def save_profiles(profiles: dict[str, dict[str, str]]) -> None:
+    PROFILES_PATH.write_text(
+        json.dumps(profiles, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
 # ══════════════════════════════════════════════════════════════════════
@@ -140,7 +191,7 @@ def _spaced(text: str, gap: str = " ") -> str:
 # ══════════════════════════════════════════════════════════════════════
 def run_gui(prefill: dict[str, float] | None = None) -> None:
     import tkinter as tk
-    from tkinter import font as tkfont
+    from tkinter import font as tkfont, messagebox
 
     prefill = prefill or {}
 
@@ -222,6 +273,20 @@ def run_gui(prefill: dict[str, float] | None = None) -> None:
              fg=C_TEXT, bg=C_BG).pack(side="left")
     tk.Label(bar, text="—", font=f_h1, fg=C_RED, bg=C_BG).pack(side="left", padx=8)
 
+    prof_shell = tk.Frame(bar, bg=C_LINE)
+    prof_shell.pack(side="right")
+    prof_mb = tk.Menubutton(prof_shell, text="Ler Perfis  ▾", font=(UI, 9),
+                            fg=C_TEXT, bg=C_PANEL2, activebackground=C_LINE,
+                            activeforeground=C_TEXT, relief="flat", padx=12,
+                            pady=6, cursor="hand2")
+    prof_mb.pack(padx=1, pady=1)
+    prof_menu = tk.Menu(prof_mb, tearoff=0, bg=C_PANEL2, fg=C_TEXT,
+                        activebackground=C_RED, activeforeground="#ffffff",
+                        bd=0, font=(UI, 9))
+    prof_mb.configure(menu=prof_menu)
+    tk.Label(bar, text=_spaced("PERFIS SALVOS"), font=(UI, 8, "bold"),
+             fg=C_MUTED, bg=C_BG).pack(side="right", padx=(0, 10))
+
     # ── state ───────────────────────────────────────────────────────
     v_cons = tk.StringVar(value=f"{DEFAULT_CONS_LH:g}")
     v_dur = tk.StringVar(value=f"{DEFAULT_DUR_H:g}")
@@ -233,6 +298,263 @@ def run_gui(prefill: dict[str, float] | None = None) -> None:
     v_pax4 = tk.StringVar(value="")
     v_bag = tk.StringVar(value="")
     v_fuel = tk.StringVar(value="")
+
+    FIELD_VARS = {
+        "consumo": v_cons, "duracao": v_dur,
+        "empty_kg": v_empty_kg, "empty_cg": v_empty_cg,
+        "pilot": v_pilot, "copilot": v_copil,
+        "pax3": v_pax3, "pax4": v_pax4,
+        "baggage": v_bag, "fuel": v_fuel,
+    }
+
+    def ask_text(title: str, prompt: str, initial: str = "") -> str | None:
+        """Caixa modal no tema da pagina; devolve None se cancelado."""
+        dlg = tk.Toplevel(root, bg=C_PANEL)
+        dlg.title(title)
+        dlg.resizable(False, False)
+        dlg.transient(root)
+        out: dict[str, str | None] = {"v": None}
+
+        body = tk.Frame(dlg, bg=C_PANEL)
+        body.pack(padx=18, pady=16)
+        tk.Label(body, text=prompt, font=f_lbl, fg=C_MUTED, bg=C_PANEL,
+                 anchor="w").pack(fill="x", pady=(0, 6))
+        var = tk.StringVar(value=initial)
+        ent = tk.Entry(body, textvariable=var, font=f_num, fg=C_TEXT, bg=C_FIELD,
+                       insertbackground=C_RED, relief="flat", width=30,
+                       highlightthickness=1, highlightbackground=C_LINE,
+                       highlightcolor=C_RED)
+        ent.pack(fill="x", ipady=5)
+
+        def ok(*_a):
+            out["v"] = var.get().strip()
+            dlg.destroy()
+
+        btns = tk.Frame(body, bg=C_PANEL)
+        btns.pack(fill="x", pady=(14, 0))
+        tk.Button(btns, text="Cancelar", font=(UI, 9), fg=C_MUTED, bg=C_PANEL2,
+                  activebackground=C_LINE, activeforeground=C_TEXT, relief="flat",
+                  padx=12, pady=5, cursor="hand2",
+                  command=dlg.destroy).pack(side="right")
+        tk.Button(btns, text="Salvar", font=(UI, 9, "bold"), fg="#ffffff",
+                  bg=C_RED, activebackground=C_RED_DIM, activeforeground="#ffffff",
+                  relief="flat", padx=14, pady=5, cursor="hand2",
+                  command=ok).pack(side="right", padx=(0, 8))
+
+        dlg.bind("<Return>", ok)
+        dlg.bind("<Escape>", lambda _e: dlg.destroy())
+        dlg.update_idletasks()
+        dlg.geometry("+%d+%d" % (
+            root.winfo_rootx() + (root.winfo_width() - dlg.winfo_width()) // 2,
+            root.winfo_rooty() + 140))
+        ent.focus_set()
+        ent.select_range(0, "end")
+        dlg.grab_set()
+        root.wait_window(dlg)
+        return out["v"]
+
+    active_profile: dict[str, str | None] = {"name": None}
+
+    def set_active(name: str | None) -> None:
+        active_profile["name"] = name
+        prof_mb.configure(text="Ler Perfis  ▾" if name is None
+                          else f"{name}  ▾")
+
+    def apply_profile(name: str) -> None:
+        data = load_profiles().get(name)
+        if not data:
+            return
+        for key in PROFILE_FIELDS:
+            FIELD_VARS[key].set(str(data.get(key, "")))
+        set_active(name)
+        render()
+
+    def rebuild_profile_menu() -> None:
+        prof_menu.delete(0, "end")
+        names = sorted(load_profiles(), key=str.lower)
+        if not names:
+            prof_menu.add_command(label="(nenhum perfil salvo)", state="disabled")
+            return
+        for name in names:
+            prof_menu.add_command(label=name,
+                                  command=lambda n=name: apply_profile(n))
+
+    prof_menu.configure(postcommand=rebuild_profile_menu)
+    rebuild_profile_menu()
+
+    def save_profile() -> None:
+        name = ask_text("Salvar Perfil", "Nome do perfil:")
+        if not name:
+            return
+        profiles = load_profiles()
+        if name in profiles and not messagebox.askyesno(
+                "Salvar Perfil",
+                f"Já existe um perfil chamado “{name}”.\nSubstituir?",
+                parent=root):
+            return
+        profiles[name] = {k: FIELD_VARS[k].get().strip() for k in PROFILE_FIELDS}
+        try:
+            save_profiles(profiles)
+        except OSError as exc:
+            messagebox.showerror("Salvar Perfil",
+                                 f"Não foi possível gravar:\n{exc}", parent=root)
+            return
+        set_active(name)
+        rebuild_profile_menu()
+        lbl_save_msg.configure(text=f"✓ Perfil “{name}” salvo")
+        root.after(2500, lambda: lbl_save_msg.configure(text=""))
+
+    def manage_profiles() -> None:
+        win = tk.Toplevel(root, bg=C_BG)
+        win.title("Gerenciar Perfis")
+        win.transient(root)
+        win.minsize(520, 280)
+
+        head = tk.Frame(win, bg=C_BG)
+        head.pack(fill="x", padx=16, pady=(14, 10))
+        tk.Frame(head, bg=C_RED, width=3, height=13).pack(side="left", padx=(0, 8))
+        tk.Label(head, text=_spaced("PERFIS SALVOS"), font=f_h2, fg=C_MUTED,
+                 bg=C_BG).pack(side="left")
+
+        body = tk.Frame(win, bg=C_BG)
+        body.pack(fill="both", expand=True, padx=16)
+        cv = tk.Canvas(body, bg=C_BG, highlightthickness=0, height=260)
+        sb = tk.Scrollbar(body, orient="vertical", command=cv.yview, bg=C_PANEL,
+                          troughcolor=C_BG, borderwidth=0,
+                          activebackground=C_LINE, highlightthickness=0)
+        cv.configure(yscrollcommand=sb.set)
+        cv.pack(side="left", fill="both", expand=True)
+        rows = tk.Frame(cv, bg=C_BG)
+        rows_win = cv.create_window((0, 0), window=rows, anchor="nw")
+        rows.bind("<Configure>",
+                  lambda _e: cv.configure(scrollregion=cv.bbox("all")))
+        cv.bind("<Configure>", lambda e: cv.itemconfigure(rows_win, width=e.width))
+        cv.bind("<MouseWheel>",
+                lambda e: cv.yview_scroll(int(-e.delta / 120), "units"))
+
+        foot = tk.Frame(win, bg=C_BG)
+        foot.pack(fill="x", padx=16, pady=(8, 14))
+        status = tk.Label(foot, text="", font=f_hint, fg=C_OK, bg=C_BG)
+        status.pack(side="left")
+        tk.Button(foot, text="Fechar", font=(UI, 9), fg=C_MUTED, bg=C_PANEL2,
+                  activebackground=C_LINE, activeforeground=C_TEXT, relief="flat",
+                  padx=14, pady=6, cursor="hand2",
+                  command=win.destroy).pack(side="right")
+
+        def fit() -> None:
+            """Altura da lista acompanha o conteudo; rolagem so quando precisa."""
+            rows.update_idletasks()
+            need = rows.winfo_reqheight()
+            cv.configure(height=min(360, max(60, need)),
+                         scrollregion=cv.bbox("all"))
+            if need > 360:
+                sb.pack(side="right", fill="y")
+            else:
+                sb.pack_forget()
+
+        def flash(msg: str, ok: bool = True) -> None:
+            status.configure(text=msg, fg=C_OK if ok else C_RED)
+            win.after(3000, lambda: status.configure(text=""))
+
+        def commit(profiles: dict) -> bool:
+            try:
+                save_profiles(profiles)
+            except OSError as exc:
+                messagebox.showerror(
+                    "Gerenciar Perfis",
+                    "Não foi possível gravar:" + chr(10) + str(exc),
+                    parent=win)
+                return False
+            rebuild_profile_menu()
+            refresh()
+            return True
+
+        def do_rename(old: str, new: str) -> None:
+            new = new.strip()
+            if not new:
+                flash("O nome não pode ficar vazio.", ok=False)
+                return
+            if new == old:
+                flash("Nome inalterado.")
+                return
+            profiles = load_profiles()
+            if old not in profiles:
+                refresh()
+                return
+            if new in profiles and not messagebox.askyesno(
+                    "Gerenciar Perfis",
+                    "Já existe um perfil chamado “" + new + "”."
+                    + chr(10) + "Substituir?", parent=win):
+                return
+            renamed = {}
+            for k, v in profiles.items():
+                if k == old:
+                    renamed[new] = v
+                elif k != new:
+                    renamed[k] = v
+            if commit(renamed):
+                if active_profile["name"] == old:
+                    set_active(new)
+                flash("“" + old + "” renomeado para “" + new
+                      + "”.")
+
+        def do_delete(name: str) -> None:
+            if not messagebox.askyesno(
+                    "Gerenciar Perfis",
+                    "Excluir o perfil “" + name + "”?" + chr(10)
+                    + "Esta ação não pode ser desfeita.",
+                    parent=win):
+                return
+            profiles = load_profiles()
+            profiles.pop(name, None)
+            if commit(profiles):
+                if active_profile["name"] == name:
+                    set_active(None)
+                flash("“" + name + "” excluído.")
+
+        def refresh() -> None:
+            for w in rows.winfo_children():
+                w.destroy()
+            profiles = load_profiles()
+            if not profiles:
+                tk.Label(rows, text="Nenhum perfil salvo ainda.", font=f_lbl,
+                         fg=C_MUTED, bg=C_BG).pack(anchor="w", pady=8)
+                fit()
+                return
+            for name in sorted(profiles, key=str.lower):
+                shell = tk.Frame(rows, bg=C_LINE)
+                shell.pack(fill="x", pady=(0, 6))
+                inner = tk.Frame(shell, bg=C_PANEL)
+                inner.pack(fill="x", padx=1, pady=1)
+                var = tk.StringVar(value=name)
+                tk.Button(inner, text="Excluir", font=(UI, 9), fg=C_RED,
+                          bg=C_PANEL2, activebackground=C_BADGE_NG_BG,
+                          activeforeground=C_RED, relief="flat", padx=12, pady=4,
+                          cursor="hand2",
+                          command=lambda n=name: do_delete(n)).pack(
+                    side="right", padx=(0, 8), pady=7)
+                tk.Button(inner, text="Salvar", font=(UI, 9, "bold"), fg="#ffffff",
+                          bg=C_RED, activebackground=C_RED_DIM,
+                          activeforeground="#ffffff", relief="flat", padx=12,
+                          pady=4, cursor="hand2",
+                          command=lambda n=name, v=var: do_rename(n, v.get())).pack(
+                    side="right", padx=6, pady=7)
+                ent = tk.Entry(inner, textvariable=var, font=f_lbl, fg=C_TEXT,
+                               bg=C_FIELD, insertbackground=C_RED, relief="flat",
+                               highlightthickness=1, highlightbackground=C_LINE,
+                               highlightcolor=C_RED)
+                ent.pack(side="left", fill="x", expand=True, padx=(8, 0), pady=7,
+                         ipady=3)
+                ent.bind("<Return>",
+                         lambda _e, n=name, v=var: do_rename(n, v.get()))
+            fit()
+
+        refresh()
+        win.update_idletasks()
+        win.geometry("+%d+%d" % (
+            root.winfo_rootx() + (root.winfo_width() - win.winfo_width()) // 2,
+            root.winfo_rooty() + 120))
+        win.bind("<Escape>", lambda _e: win.destroy())
 
     def num(var: tk.StringVar, default: float = 0.0) -> float:
         """Equivalente a parseFloat(v)||default do JS."""
@@ -355,7 +677,7 @@ def run_gui(prefill: dict[str, float] | None = None) -> None:
         ("pax3", "Passageiro 3", "assento traseiro", v_pax3, ARM_REAR_SEATS),
         ("pax4", "Passageiro 4", "assento traseiro", v_pax4, ARM_REAR_SEATS),
         ("bag", "Bagagem", f"máx. {MAX_BAG_KG:.0f} kg", v_bag, ARM_BAGGAGE),
-        ("fuel", "Combustível",
+        ("fuel", "Combustível na Decolagem",
          f"máx. {MAX_FUEL_L:.0f} L · ×{FUEL_DENSITY} kg/L",
          v_fuel, ARM_FUEL),
     ]
@@ -398,26 +720,66 @@ def run_gui(prefill: dict[str, float] | None = None) -> None:
     rule(r)
     r += 1
     total_bg = "#1c222b"
-    tk.Label(table, text="TOTAL", font=(UI, 9, "bold"), fg=C_TEXT, bg=total_bg,
-             anchor="w").grid(row=r, column=0, sticky="ew", padx=8, ipady=6)
+    tk.Label(table, text="TOTAL NA DECOLAGEM", font=(UI, 9, "bold"), fg=C_TEXT,
+             bg=total_bg, anchor="w").grid(row=r, column=0, sticky="ew", padx=8,
+                                           ipady=6)
     lbl_total_kg = tk.Label(table, text="— kg", font=f_num_b, fg=C_TEXT,
                             bg=total_bg, anchor="e")
     lbl_total_kg.grid(row=r, column=1, sticky="ew", padx=8, ipady=6)
-    tk.Label(table, text="—", font=f_num_b, fg=C_TEXT, bg=total_bg,
-             anchor="e").grid(row=r, column=2, sticky="ew", padx=8, ipady=6)
+    lbl_total_arm = tk.Label(table, text="—", font=f_num_b, fg=C_TEXT, bg=total_bg,
+                             anchor="e")
+    lbl_total_arm.grid(row=r, column=2, sticky="ew", padx=8, ipady=6)
     lbl_total_mom = tk.Label(table, text="—", font=f_num_b, fg=C_TEXT,
                              bg=total_bg, anchor="e")
     lbl_total_mom.grid(row=r, column=3, sticky="ew", padx=8, ipady=6)
 
+    # ── combustivel restante e total no pouso ───────────────────────
+    r += 1
+    rule(r)
+    r += 1
+    land_cell = tk.Frame(table, bg=C_PANEL)
+    land_cell.grid(row=r, column=0, sticky="w", padx=8, pady=6)
+    tk.Label(land_cell, text="Combustível no Pouso", font=f_lbl, fg=C_TEXT,
+             bg=C_PANEL).pack(side="left")
+    lbl_burn_tag = tk.Label(land_cell, text="", font=f_tag, fg=C_MUTED, bg=C_PANEL)
+    lbl_burn_tag.pack(side="left", padx=(5, 0))
+    lbl_land_kg = tk.Label(table, text="—", font=f_num, fg=C_TEXT, bg=C_PANEL,
+                           anchor="e")
+    lbl_land_kg.grid(row=r, column=1, sticky="e", padx=8)
+    tk.Label(table, text=f"{ARM_FUEL:.0f}", font=f_num, fg=C_TEXT, bg=C_PANEL,
+             anchor="e").grid(row=r, column=2, sticky="e", padx=8)
+    lbl_land_mom = tk.Label(table, text="—", font=f_num, fg=C_TEXT, bg=C_PANEL,
+                            anchor="e")
+    lbl_land_mom.grid(row=r, column=3, sticky="e", padx=8)
+
+    r += 1
+    rule(r)
+    r += 1
+    tk.Label(table, text="TOTAL NO POUSO", font=(UI, 9, "bold"), fg=C_TEXT,
+             bg=total_bg, anchor="w").grid(row=r, column=0, sticky="ew", padx=8,
+                                           ipady=6)
+    lbl_ltot_kg = tk.Label(table, text="— kg", font=f_num_b, fg=C_TEXT,
+                           bg=total_bg, anchor="e")
+    lbl_ltot_kg.grid(row=r, column=1, sticky="ew", padx=8, ipady=6)
+    lbl_ltot_arm = tk.Label(table, text="—", font=f_num_b, fg=C_TEXT, bg=total_bg,
+                            anchor="e")
+    lbl_ltot_arm.grid(row=r, column=2, sticky="ew", padx=8, ipady=6)
+    lbl_ltot_mom = tk.Label(table, text="—", font=f_num_b, fg=C_TEXT, bg=total_bg,
+                            anchor="e")
+    lbl_ltot_mom.grid(row=r, column=3, sticky="ew", padx=8, ipady=6)
+
     # ── barra de resultado ──────────────────────────────────────────
     res_bar = tk.Frame(sec_mass, bg=C_PANEL)
     res_bar.pack(fill="x", pady=(14, 0))
-    res_bar.columnconfigure(0, weight=1, uniform="res")
-    res_bar.columnconfigure(1, weight=1, uniform="res")
+    for i in range(3):
+        res_bar.columnconfigure(i, weight=1, uniform="res")
+
+    res_bar.rowconfigure(0, weight=1)
 
     def res_cell(col: int, caption: str):
         shell = tk.Frame(res_bar, bg=C_LINE)
-        shell.grid(row=0, column=col, sticky="ew", padx=(0 if col == 0 else 5, 0))
+        shell.grid(row=0, column=col, sticky="nsew",
+                   padx=(0 if col == 0 else 5, 0))
         box = tk.Frame(shell, bg=C_PANEL2)
         box.pack(fill="both", expand=True, padx=1, pady=1)
         tk.Label(box, text=_spaced(caption.upper()), font=(UI, 7, "bold"),
@@ -426,17 +788,41 @@ def run_gui(prefill: dict[str, float] | None = None) -> None:
         val.pack(pady=(0, 10))
         return val
 
-    lbl_out_weight = res_cell(0, "Peso Decolagem")
+    lbl_out_weight = res_cell(0, "Peso na Decolagem")
 
-    shell_badge = tk.Frame(res_bar, bg=C_LINE)
-    shell_badge.grid(row=0, column=1, sticky="ew", padx=(5, 0))
-    badge_box = tk.Frame(shell_badge, bg=C_PANEL2)
-    badge_box.pack(fill="both", expand=True, padx=1, pady=1)
-    tk.Label(badge_box, text=_spaced("STATUS"), font=(UI, 7, "bold"), fg=C_MUTED,
-             bg=C_PANEL2).pack(pady=(9, 4))
-    lbl_badge = tk.Label(badge_box, text="—", font=f_badge, fg=C_MUTED,
-                         bg=C_PANEL2, padx=10, pady=3)
-    lbl_badge.pack(pady=(0, 11))
+    def badge_cell(col: int, caption: str):
+        shell = tk.Frame(res_bar, bg=C_LINE)
+        shell.grid(row=0, column=col, sticky="nsew", padx=(5, 0))
+        box = tk.Frame(shell, bg=C_PANEL2)
+        box.pack(fill="both", expand=True, padx=1, pady=1)
+        tk.Label(box, text=_spaced(caption.upper()), font=(UI, 7, "bold"),
+                 fg=C_MUTED, bg=C_PANEL2).pack(pady=(9, 4))
+        badge = tk.Label(box, text="—", font=f_badge, fg=C_MUTED, bg=C_PANEL2,
+                         padx=10, pady=3)
+        badge.pack()
+        detail = tk.Label(box, text="", font=(MONO, 8), fg=C_MUTED, bg=C_PANEL2)
+        detail.pack(pady=(4, 9))
+        return badge, detail
+
+    lbl_badge, lbl_badge_det = badge_cell(1, "Na Decolagem")
+    lbl_lbadge, lbl_lbadge_det = badge_cell(2, "No Pouso")
+
+    def set_badge(badge, detail, r) -> None:
+        """Pinta um badge a partir de um WBResult."""
+        if r.total <= 0:
+            badge.configure(text="—", fg=C_MUTED, bg=C_PANEL2)
+            detail.configure(text="")
+            return
+        if r.overweight:
+            badge.configure(text="⚠ EXCESSO DE PESO", fg=C_RED, bg=C_BADGE_NG_BG)
+        elif r.cg_oob:
+            badge.configure(text="⚠ CG FORA DOS LIMITES", fg=C_RED,
+                            bg=C_BADGE_NG_BG)
+        else:
+            badge.configure(text="✓ Dentro do envelope", fg=C_OK,
+                            bg=C_BADGE_OK_BG)
+        detail.configure(text=f"{r.total:.1f} kg · {r.cg_mm:.0f} mm · "
+                              f"{r.p_mac:.1f} %MAC")
 
     # ── Envelope de CG ──────────────────────────────────────────────
     sec_env = section(wrap, "Envelope de CG — Peso vs CG%MAC")
@@ -450,6 +836,20 @@ def run_gui(prefill: dict[str, float] | None = None) -> None:
              font=f_hint, fg=C_MUTED, bg=C_PANEL, wraplength=CW,
              justify="left", anchor="w").pack(fill="x", pady=(10, 0))
 
+    # ── salvar perfil ───────────────────────────────────────────────
+    save_row = tk.Frame(wrap, bg=C_BG)
+    save_row.pack(fill="x", pady=(0, 6))
+    tk.Button(save_row, text="Salvar Perfil", font=(UI, 9, "bold"), fg="#ffffff",
+              bg=C_RED, activebackground=C_RED_DIM, activeforeground="#ffffff",
+              relief="flat", padx=18, pady=8, cursor="hand2",
+              command=lambda: save_profile()).pack(side="left")
+    tk.Button(save_row, text="Gerenciar Perfis", font=(UI, 9), fg=C_TEXT,
+              bg=C_PANEL2, activebackground=C_LINE, activeforeground=C_TEXT,
+              relief="flat", padx=16, pady=8, cursor="hand2",
+              command=lambda: manage_profiles()).pack(side="left", padx=(8, 0))
+    lbl_save_msg = tk.Label(save_row, text="", font=f_hint, fg=C_OK, bg=C_BG)
+    lbl_save_msg.pack(side="left", padx=12)
+
     PAD_L, PAD_R, PAD_T, PAD_B = 46, 18, 18, 50
     DW = CW - PAD_L - PAD_R
     DH = CH - PAD_T - PAD_B
@@ -460,7 +860,7 @@ def run_gui(prefill: dict[str, float] | None = None) -> None:
     def to_y(v: float) -> float:
         return PAD_T + DH - ((v - CHART_Y_MIN) / (CHART_Y_MAX - CHART_Y_MIN)) * DH
 
-    def draw_envelope(res: WBResult) -> None:
+    def draw_envelope(res: WBResult, land: WBResult | None = None) -> None:
         chart.delete("all")
         chart.create_rectangle(PAD_L, PAD_T, CW - PAD_R, CH - PAD_B,
                                fill=C_PLOT_BG, outline="")
@@ -492,13 +892,29 @@ def run_gui(prefill: dict[str, float] | None = None) -> None:
         if res.total > 0:
             dx, dy = to_x(res.p_mac), to_y(res.total)
             col = C_DOT_OK if res.ok else C_DOT_NG
+
+            # trajetoria decolagem -> pouso (o CG recua conforme queima)
+            if land is not None and land.total > 0:
+                lx, ly = to_x(land.p_mac), to_y(land.total)
+                lcol = C_DOT_OK if land.ok else C_DOT_NG
+                chart.create_line(dx, dy, lx, ly, fill="#7c8698", width=1.2,
+                                  dash=(4, 3))
+                chart.create_oval(lx - 4.5, ly - 4.5, lx + 4.5, ly + 4.5,
+                                  fill=C_PLOT_BG, outline=lcol, width=2)
+                chart.create_text(min(max(lx, 50), CW - 50),
+                                  min(ly + 12, CH - PAD_B - 6),
+                                  text=f"POU  {land.p_mac:.1f}% / "
+                                       f"{land.total:.0f} kg",
+                                  fill=lcol, font=(UI, 8), anchor="n")
+
             chart.create_oval(dx - 7, dy - 7, dx + 7, dy + 7, fill="", outline=col)
             chart.create_oval(dx - 4.5, dy - 4.5, dx + 4.5, dy + 4.5, fill=col,
                               outline="#ffffff")
             tx = min(max(dx, 50), CW - 50)
             ty = max(dy - 12, PAD_T + 10)
             chart.create_text(tx, ty,
-                              text=f"{res.p_mac:.1f}% / {res.total:.0f} kg",
+                              text=(f"DEC  " if land is not None else "")
+                                   + f"{res.p_mac:.1f}% / {res.total:.0f} kg",
                               fill=col, font=(UI, 8), anchor="s")
 
         chart.create_text(PAD_L + DW / 2, CH - 4, text="% MAC", fill=C_AXIS_LBL,
@@ -534,24 +950,36 @@ def run_gui(prefill: dict[str, float] | None = None) -> None:
         res = calc_wb(empty_kg, empty_cg, pilot, copil, pax3, pax4, bag, fuel_l)
 
         lbl_total_kg.configure(text=f"{res.total:.1f} kg")
+        lbl_total_arm.configure(
+            text=f"{res.cg_mm:.0f}" if res.total > 0 else "—")
         lbl_total_mom.configure(
             text=f"{res.cg_mm * res.total / 1000:.1f}" if res.total > 0 else "—")
         lbl_out_weight.configure(text=f"{res.total:.1f} kg")
 
-        if res.total <= 0:
-            lbl_badge.configure(text="—", fg=C_MUTED, bg=C_PANEL2)
-        elif res.overweight:
-            lbl_badge.configure(
-                text=f"⚠ EXCESSO DE PESO (MTOW {MTOW_TSI:.0f} kg)",
-                fg=C_RED, bg=C_BADGE_NG_BG)
-        elif res.cg_oob:
-            lbl_badge.configure(
-                text=f"⚠ CG FORA DOS LIMITES ({CG_FWD_MM:.0f}–"
-                     f"{CG_AFT_MM:.0f} mm)",
-                fg=C_RED, bg=C_BADGE_NG_BG)
-        else:
-            lbl_badge.configure(text="✓ Dentro do envelope", fg=C_OK,
-                                bg=C_BADGE_OK_BG)
+        # ── pouso: combustivel restante apos consumo x duracao ──────
+        cons_lh, dur_h = num(v_cons, DEFAULT_CONS_LH), num(v_dur)
+        land = calc_landing(res, cons_lh, dur_h)
+        burn_l = cons_lh * dur_h
+        lbl_burn_tag.configure(
+            text="" if burn_l == 0 else
+            f"− {burn_l:.0f} L queimados ({burn_l * FUEL_DENSITY:.1f} kg)")
+        dry = land.fuel_kg < 0
+        lbl_land_kg.configure(text=f"{land.fuel_kg:.1f}",
+                              fg=C_RED if dry else C_TEXT)
+        lbl_land_mom.configure(
+            text="—" if land.fuel_kg == 0 else
+            f"{land.fuel_kg * ARM_FUEL / 1000:.3f}",
+            fg=C_RED if dry else C_TEXT)
+        lbl_ltot_kg.configure(text=f"{land.total:.1f} kg")
+        lbl_ltot_arm.configure(
+            text=f"{land.cg_mm:.0f}" if land.total > 0 else "—",
+            fg=C_RED if land.cg_oob else C_TEXT)
+        lbl_ltot_mom.configure(
+            text=f"{land.cg_mm * land.total / 1000:.1f}" if land.total > 0
+            else "—")
+
+        set_badge(lbl_badge, lbl_badge_det, res)
+        set_badge(lbl_lbadge, lbl_lbadge_det, land)
 
         # slider <-> campo de combustivel
         _slider_val["v"] = min(MAX_FUEL_L, max(0.0, fuel_l))
@@ -559,22 +987,20 @@ def run_gui(prefill: dict[str, float] | None = None) -> None:
         lbl_fuel_l.configure(text=f"{fuel_l:.0f} L")
         lbl_fuel_kg.configure(text=f"· {fuel_l * FUEL_DENSITY:.1f} kg")
 
-        draw_envelope(res)
+        draw_envelope(res, land if burn_l > 0 else None)
 
-    for v in (v_empty_kg, v_empty_cg, v_pilot, v_copil, v_pax3, v_pax4, v_bag,
-              v_fuel):
+    # todo campo da pagina recalcula — inclusive consumo e duracao, que so
+    # afetam as linhas de pouso
+    for v in FIELD_VARS.values():
         v.trace_add("write", render)
 
     # valores iniciais vindos da linha de comando
     def _fmt(x: float) -> str:
         return f"{x:g}"
 
-    for key, var in (("empty_kg", v_empty_kg), ("empty_cg", v_empty_cg),
-                     ("pilot", v_pilot), ("copilot", v_copil),
-                     ("pax3", v_pax3), ("pax4", v_pax4),
-                     ("baggage", v_bag), ("fuel", v_fuel)):
+    for key in PROFILE_FIELDS:
         if prefill.get(key):
-            var.set(_fmt(prefill[key]))
+            FIELD_VARS[key].set(_fmt(prefill[key]))
 
     # rolagem por teclado
     root.bind("<Prior>", lambda _e: outer.yview_scroll(-8, "units"))
@@ -600,23 +1026,32 @@ def run_cli(args: argparse.Namespace) -> None:
         ("Passageiro 3", args.pax3, ARM_REAR_SEATS),
         ("Passageiro 4", args.pax4, ARM_REAR_SEATS),
         ("Bagagem", args.baggage, ARM_BAGGAGE),
-        (f"Combustivel ({args.fuel:.0f} L)", res.fuel_kg, ARM_FUEL),
+        (f"Combustivel Decolagem ({args.fuel:.0f} L)", res.fuel_kg, ARM_FUEL),
     ]
+    land = calc_landing(res, args.consumo, args.duracao)
 
     print("\n  SLING TSi — PESO & BALANCO\n")
-    print(f"  {'Item':<24}{'Peso (kg)':>11}{'Braco (mm)':>12}{'Momento (kg.m)':>16}")
-    print("  " + "-" * 63)
+    print(f"  {'Item':<30}{'Peso (kg)':>11}{'Braco (mm)':>12}{'Momento (kg.m)':>16}")
+    print("  " + "-" * 69)
     for name, kg, arm in rows:
         mom = "-" if kg == 0 else f"{kg * arm / 1000:.3f}"
-        print(f"  {name:<24}{kg:>11.1f}{arm:>12.0f}{mom:>16}")
-    print("  " + "-" * 63)
-    print(f"  {'TOTAL':<24}{res.total:>11.1f}{'':>12}"
+        print(f"  {name:<30}{kg:>11.1f}{arm:>12.0f}{mom:>16}")
+    print("  " + "-" * 69)
+    print(f"  {'TOTAL NA DECOLAGEM':<30}{res.total:>11.1f}{res.cg_mm:>12.0f}"
           f"{res.cg_mm * res.total / 1000:>16.1f}")
+    print("  " + "-" * 69)
+    print(f"  {'Combustivel no Pouso':<30}{land.fuel_kg:>11.1f}{ARM_FUEL:>12.0f}"
+          f"{land.fuel_kg * ARM_FUEL / 1000:>16.3f}")
+    print("  " + "-" * 69)
+    print(f"  {'TOTAL NO POUSO':<30}{land.total:>11.1f}{land.cg_mm:>12.0f}"
+          f"{land.cg_mm * land.total / 1000:>16.1f}")
 
     print(f"\n  Peso de decolagem : {res.total:.1f} kg  (MTOW {MTOW_TSI:.0f} kg)")
     print(f"  CG                : {res.cg_mm:.0f} mm  "
           f"(limites {CG_FWD_MM:.0f}–{CG_AFT_MM:.0f} mm)")
     print(f"  CG %MAC           : {res.p_mac:.1f}%")
+    print(f"  CG no pouso       : {land.cg_mm:.0f} mm · {land.p_mac:.1f}%MAC"
+          f"{'  [!] FORA DOS LIMITES' if land.cg_oob else ''}")
 
     if res.overweight:
         status = f"[!] EXCESSO DE PESO (MTOW {MTOW_TSI:.0f} kg)"
@@ -642,13 +1077,19 @@ def main() -> int:
     p.add_argument("--baggage", type=float, default=0.0,
                    help=f"bagagem, kg (max {MAX_BAG_KG:.0f})")
     p.add_argument("--fuel", type=float, default=0.0,
-                   help=f"combustivel, litros (max {MAX_FUEL_L:.0f})")
+                   help=f"combustivel na decolagem, litros (max {MAX_FUEL_L:.0f})")
+    p.add_argument("--consumo", type=float, default=DEFAULT_CONS_LH,
+                   help=f"consumo de combustivel em L/h (padrao {DEFAULT_CONS_LH:.0f})")
+    p.add_argument("--duracao", type=float, default=DEFAULT_DUR_H,
+                   help="duracao do voo em horas")
     args = p.parse_args()
 
     if args.cli:
         run_cli(args)
     else:
         run_gui({
+            "consumo": args.consumo,
+            "duracao": args.duracao,
             "empty_kg": args.empty_kg,
             "empty_cg": args.empty_cg,
             "pilot": args.pilot, "copilot": args.copilot,
