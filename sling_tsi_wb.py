@@ -109,12 +109,14 @@ def calc_wb(empty_kg: float = DEFAULT_EMPTY_KG,
             pax3: float = 0.0,
             pax4: float = 0.0,
             baggage: float = 0.0,
-            fuel_l: float = 0.0) -> WBResult:
+            fuel_l: float = 0.0,
+            arm_pilot: float = ARM_FRONT_SEATS,
+            arm_copilot: float = ARM_FRONT_SEATS) -> WBResult:
     """Replica exata de calcWBResult() do planejador."""
     fuel_kg = fuel_l * FUEL_DENSITY
     total = empty_kg + pilot + copilot + pax3 + pax4 + baggage + fuel_kg
     moment = (empty_kg * empty_cg_mm
-              + (pilot + copilot) * ARM_FRONT_SEATS
+              + pilot * arm_pilot + copilot * arm_copilot
               + (pax3 + pax4) * ARM_REAR_SEATS
               + baggage * ARM_BAGGAGE
               + fuel_kg * ARM_FUEL)
@@ -138,7 +140,8 @@ PROFILES_PATH = Path(__file__).with_name("perfis_wb.json")
 
 # campos gravados em cada perfil (ordem = ordem na tela)
 PROFILE_FIELDS = ("consumo", "duracao", "empty_kg", "empty_cg", "pilot",
-                  "copilot", "pax3", "pax4", "baggage", "fuel")
+                  "copilot", "pax3", "pax4", "baggage", "fuel",
+                  "pilot_arm", "copilot_arm")
 
 
 def load_profiles() -> dict[str, dict[str, str]]:
@@ -289,8 +292,8 @@ def build_print_html(values: dict, res: "WBResult", land: "WBResult",
     burn_l = values["consumo"] * values["duracao"]
     linhas = [
         ("Peso Vazio", "perfil", values["empty_kg"], values["empty_cg"]),
-        ("Piloto", "assento dianteiro", values["pilot"], ARM_FRONT_SEATS),
-        ("Copiloto", "assento dianteiro", values["copilot"], ARM_FRONT_SEATS),
+        ("Piloto", "assento dianteiro", values["pilot"], values["pilot_arm"]),
+        ("Copiloto", "assento dianteiro", values["copilot"], values["copilot_arm"]),
         ("Passageiro 3", "assento traseiro", values["pax3"], ARM_REAR_SEATS),
         ("Passageiro 4", "assento traseiro", values["pax4"], ARM_REAR_SEATS),
         ("Bagagem", f"máx. {MAX_BAG_KG:.0f} kg", values["baggage"], ARM_BAGGAGE),
@@ -523,6 +526,8 @@ def run_gui(prefill: dict[str, float] | None = None) -> None:
     v_pax4 = tk.StringVar(value="")
     v_bag = tk.StringVar(value="")
     v_fuel = tk.StringVar(value="")
+    v_pilot_arm = tk.StringVar(value=f"{ARM_FRONT_SEATS:g}")
+    v_copil_arm = tk.StringVar(value=f"{ARM_FRONT_SEATS:g}")
 
     FIELD_VARS = {
         "consumo": v_cons, "duracao": v_dur,
@@ -530,6 +535,7 @@ def run_gui(prefill: dict[str, float] | None = None) -> None:
         "pilot": v_pilot, "copilot": v_copil,
         "pax3": v_pax3, "pax4": v_pax4,
         "baggage": v_bag, "fuel": v_fuel,
+        "pilot_arm": v_pilot_arm, "copilot_arm": v_copil_arm,
     }
 
     def ask_text(title: str, prompt: str, initial: str = "") -> str | None:
@@ -633,11 +639,14 @@ def run_gui(prefill: dict[str, float] | None = None) -> None:
         """Gera a folha A4 e abre o diálogo de impressão do navegador."""
         values = {k: num(FIELD_VARS[k],
                          DEFAULT_EMPTY_KG if k == "empty_kg" else
-                         DEFAULT_EMPTY_CG_MM if k == "empty_cg" else 0.0)
+                         DEFAULT_EMPTY_CG_MM if k == "empty_cg" else
+                         ARM_FRONT_SEATS if k in ("pilot_arm", "copilot_arm")
+                         else 0.0)
                   for k in PROFILE_FIELDS}
         res = calc_wb(values["empty_kg"], values["empty_cg"], values["pilot"],
                       values["copilot"], values["pax3"], values["pax4"],
-                      values["baggage"], values["fuel"])
+                      values["baggage"], values["fuel"],
+                      values["pilot_arm"], values["copilot_arm"])
         land = calc_landing(res, values["consumo"], values["duracao"])
         page = Path(tempfile.gettempdir()) / "sling_tsi_wb_impressao.html"
         try:
@@ -921,8 +930,8 @@ def run_gui(prefill: dict[str, float] | None = None) -> None:
 
     ROWS = [
         ("vazio", "Peso Vazio", "← perfil", None, None),
-        ("pilot", "Piloto", "assento dianteiro", v_pilot, ARM_FRONT_SEATS),
-        ("copil", "Copiloto", "assento dianteiro", v_copil, ARM_FRONT_SEATS),
+        ("pilot", "Piloto", "assento dianteiro", v_pilot, v_pilot_arm),
+        ("copil", "Copiloto", "assento dianteiro", v_copil, v_copil_arm),
         ("pax3", "Passageiro 3", "assento traseiro", v_pax3, ARM_REAR_SEATS),
         ("pax4", "Passageiro 4", "assento traseiro", v_pax4, ARM_REAR_SEATS),
         ("bag", "Bagagem", f"máx. {MAX_BAG_KG:.0f} kg", v_bag, ARM_BAGGAGE),
@@ -957,8 +966,17 @@ def run_gui(prefill: dict[str, float] | None = None) -> None:
                            highlightbackground=C_LINE, highlightcolor=C_RED,
                            width=9)
             ent.grid(row=r, column=1, sticky="e", padx=8, pady=4, ipady=3)
-            tk.Label(table, text=f"{arm:.0f}", font=f_num, fg=C_TEXT, bg=C_PANEL,
-                     anchor="e").grid(row=r, column=2, sticky="e", padx=8)
+            if isinstance(arm, tk.StringVar):
+                arm_ent = tk.Entry(table, textvariable=arm, font=f_num,
+                                   fg=C_TEXT, bg=C_FIELD, insertbackground=C_RED,
+                                   relief="flat", justify="right",
+                                   highlightthickness=1, highlightbackground=C_LINE,
+                                   highlightcolor=C_RED, width=9)
+                arm_ent.grid(row=r, column=2, sticky="e", padx=8, pady=4, ipady=3)
+            else:
+                tk.Label(table, text=f"{arm:.0f}", font=f_num, fg=C_TEXT,
+                         bg=C_PANEL, anchor="e").grid(
+                    row=r, column=2, sticky="e", padx=8)
 
         mom = tk.Label(table, text="—", font=f_num, fg=C_TEXT, bg=C_PANEL,
                        anchor="e")
@@ -1186,11 +1204,13 @@ def run_gui(prefill: dict[str, float] | None = None) -> None:
         pilot, copil = num(v_pilot), num(v_copil)
         pax3, pax4 = num(v_pax3), num(v_pax4)
         bag, fuel_l = num(v_bag), num(v_fuel)
+        pilot_arm = num(v_pilot_arm, ARM_FRONT_SEATS)
+        copil_arm = num(v_copil_arm, ARM_FRONT_SEATS)
 
         row_kg_arm = [
             ("vazio", empty_kg, empty_cg),
-            ("pilot", pilot, ARM_FRONT_SEATS),
-            ("copil", copil, ARM_FRONT_SEATS),
+            ("pilot", pilot, pilot_arm),
+            ("copil", copil, copil_arm),
             ("pax3", pax3, ARM_REAR_SEATS),
             ("pax4", pax4, ARM_REAR_SEATS),
             ("bag", bag, ARM_BAGGAGE),
@@ -1200,7 +1220,8 @@ def run_gui(prefill: dict[str, float] | None = None) -> None:
             mom_labels[key].configure(
                 text="—" if kg == 0 else f"{kg * arm / 1000:.3f}")
 
-        res = calc_wb(empty_kg, empty_cg, pilot, copil, pax3, pax4, bag, fuel_l)
+        res = calc_wb(empty_kg, empty_cg, pilot, copil, pax3, pax4, bag, fuel_l,
+                      pilot_arm, copil_arm)
 
         lbl_total_kg.configure(text=f"{res.total:.1f} kg")
         lbl_total_arm.configure(
