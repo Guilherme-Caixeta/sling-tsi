@@ -18,9 +18,13 @@ Uso:
 from __future__ import annotations
 
 import argparse
+import html
 import json
 import sys
+import tempfile
+import webbrowser
 from dataclasses import dataclass
+from datetime import datetime
 from pathlib import Path
 
 # ══════════════════════════════════════════════════════════════════════
@@ -151,6 +155,219 @@ def load_profiles() -> dict[str, dict[str, str]]:
 def save_profiles(profiles: dict[str, dict[str, str]]) -> None:
     PROFILES_PATH.write_text(
         json.dumps(profiles, indent=2, ensure_ascii=False), encoding="utf-8")
+
+
+# ══════════════════════════════════════════════════════════════════════
+#  FOLHA DE IMPRESSAO — A4 retrato, preto e branco
+# ══════════════════════════════════════════════════════════════════════
+PRINT_CSS = """
+@page { size: A4 portrait; margin: 14mm 13mm; }
+* { box-sizing: border-box; }
+html, body { background: #fff; color: #000; }
+body { font-family: "Segoe UI", Arial, Helvetica, sans-serif; font-size: 9.5pt;
+       margin: 0; line-height: 1.35; }
+h1 { font-size: 15pt; letter-spacing: .10em; margin: 0; text-transform: uppercase; }
+.sub { font-size: 8pt; color: #444; margin-top: 2pt; }
+header { border-bottom: 1.5pt solid #000; padding-bottom: 5pt; margin-bottom: 10pt;
+         display: flex; align-items: flex-end; justify-content: space-between; }
+h2 { font-size: 8pt; letter-spacing: .16em; text-transform: uppercase;
+     margin: 12pt 0 5pt; padding-bottom: 2pt; border-bottom: .75pt solid #000; }
+table { width: 100%; border-collapse: collapse; }
+th { font-size: 7.5pt; letter-spacing: .06em; text-transform: uppercase;
+     text-align: right; padding: 3pt 5pt; border-bottom: .75pt solid #000; }
+th:first-child, td:first-child { text-align: left; }
+td { padding: 3.5pt 5pt; border-bottom: .5pt solid #bbb;
+     text-align: right; font-variant-numeric: tabular-nums; }
+tr.total td { font-weight: 700; border-top: .75pt solid #000;
+              border-bottom: .75pt solid #000; background: #eee; }
+.tag { font-size: 7pt; color: #555; margin-left: 4pt; }
+.grid2 { display: flex; gap: 8pt; margin-top: 8pt; }
+.card { flex: 1; border: .75pt solid #000; padding: 6pt 8pt; }
+.card .k { font-size: 7pt; letter-spacing: .1em; text-transform: uppercase;
+           color: #444; }
+.card .v { font-size: 13pt; font-weight: 700; font-variant-numeric: tabular-nums; }
+.card .d { font-size: 8pt; color: #333; font-variant-numeric: tabular-nums; }
+.badge { display: inline-block; font-size: 8.5pt; font-weight: 700; padding: 2pt 6pt;
+         border: 1pt solid #000; margin: 2pt 0; }
+.badge.ng { background: #000; color: #fff; }
+.chart { text-align: center; margin-top: 6pt; }
+footer { margin-top: 10pt; padding-top: 5pt; border-top: .5pt solid #000;
+         font-size: 7.5pt; color: #333; display: flex;
+         justify-content: space-between; }
+.sig { margin-top: 16pt; display: flex; gap: 20pt; font-size: 8pt; color: #333; }
+.sig div { flex: 1; border-top: .5pt solid #000; padding-top: 3pt; }
+@media print { .noprint { display: none; } }
+.noprint { margin: 10pt 0; }
+.noprint button { font: inherit; padding: 6pt 14pt; cursor: pointer; }
+"""
+
+
+def envelope_svg(res: "WBResult", land: "WBResult | None" = None,
+                 w: int = 520, h: int = 320) -> str:
+    """Envelope de CG como SVG monocromático, pronto para impressão."""
+    pad_l, pad_r, pad_t, pad_b = 44, 14, 14, 40
+    dw, dh = w - pad_l - pad_r, h - pad_t - pad_b
+
+    def tx(v: float) -> float:
+        return pad_l + ((v - CHART_X_MIN) / (CHART_X_MAX - CHART_X_MIN)) * dw
+
+    def ty(v: float) -> float:
+        return pad_t + dh - ((v - CHART_Y_MIN) / (CHART_Y_MAX - CHART_Y_MIN)) * dh
+
+    out = [f'<svg viewBox="0 0 {w} {h}" width="{w}" height="{h}" '
+           'xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">']
+    out.append(f'<rect x="{pad_l}" y="{pad_t}" width="{dw}" height="{dh}" '
+               'fill="#fff" stroke="#000" stroke-width=".75"/>')
+    for x in (18, 20, 22, 24, 26, 28, 30, 32, 34):
+        px = tx(x)
+        out.append(f'<line x1="{px:.1f}" y1="{pad_t}" x2="{px:.1f}" '
+                   f'y2="{h - pad_b}" stroke="#ccc" stroke-width=".5"/>')
+        out.append(f'<text x="{px:.1f}" y="{h - pad_b + 11}" text-anchor="middle" '
+                   f'font-size="7.5" fill="#000">{x}%</text>')
+    for y in (400, 500, 600, 700, 800, 900, 950, 1000):
+        py = ty(y)
+        out.append(f'<line x1="{pad_l}" y1="{py:.1f}" x2="{w - pad_r}" '
+                   f'y2="{py:.1f}" stroke="#ccc" stroke-width=".5"/>')
+        out.append(f'<text x="{pad_l - 4}" y="{py + 2.5:.1f}" text-anchor="end" '
+                   f'font-size="7.5" fill="#000">{y}</text>')
+
+    mtow_y = ty(MTOW_TSI)
+    out.append(f'<line x1="{pad_l}" y1="{mtow_y:.1f}" x2="{w - pad_r}" '
+               f'y2="{mtow_y:.1f}" stroke="#000" stroke-width=".75" '
+               'stroke-dasharray="5,3"/>')
+    out.append(f'<text x="{w - pad_r - 3}" y="{mtow_y - 3:.1f}" text-anchor="end" '
+               f'font-size="7.5" fill="#000">MTOW {MTOW_TSI:.0f} kg</text>')
+
+    pts = " ".join(f"{tx(x):.1f},{ty(y):.1f}" for x, y in WB_ENV_PTS)
+    out.append(f'<polygon points="{pts}" fill="#e8e8e8" stroke="#000" '
+               'stroke-width="1.5"/>')
+
+    if res.total > 0:
+        dx, dy = tx(res.p_mac), ty(res.total)
+        if land is not None and land.total > 0:
+            lx, ly = tx(land.p_mac), ty(land.total)
+            out.append(f'<line x1="{dx:.1f}" y1="{dy:.1f}" x2="{lx:.1f}" '
+                       f'y2="{ly:.1f}" stroke="#000" stroke-width=".75" '
+                       'stroke-dasharray="4,2.5"/>')
+            out.append(f'<circle cx="{lx:.1f}" cy="{ly:.1f}" r="4.5" fill="#fff" '
+                       'stroke="#000" stroke-width="1.5"/>')
+            out.append(f'<text x="{min(max(lx, 52), w - 52):.1f}" '
+                       f'y="{ly + 13:.1f}" text-anchor="middle" '
+                       f'font-size="8" fill="#000">POU {land.p_mac:.1f}% / '
+                       f'{land.total:.0f} kg</text>')
+        out.append(f'<circle cx="{dx:.1f}" cy="{dy:.1f}" r="4.5" fill="#000"/>')
+        out.append(f'<text x="{min(max(dx, 52), w - 52):.1f}" '
+                   f'y="{dy - 8:.1f}" text-anchor="middle" '
+                   f'font-size="8" fill="#000">DEC {res.p_mac:.1f}% / '
+                   f'{res.total:.0f} kg</text>')
+
+    out.append(f'<text x="{pad_l + dw / 2:.1f}" y="{h - 4}" text-anchor="middle" '
+               'font-size="8" fill="#000">% MAC</text>')
+    out.append(f'<text x="10" y="{pad_t + dh / 2:.1f}" text-anchor="middle" '
+               f'font-size="8" fill="#000" transform="rotate(-90 10 '
+               f'{pad_t + dh / 2:.1f})">Peso (kg)</text>')
+    out.append("</svg>")
+    return "".join(out)
+
+
+def build_print_html(values: dict, res: "WBResult", land: "WBResult",
+                     profile_name: str | None = None) -> str:
+    """Folha A4 preto-e-branco com a composição de massa e o envelope."""
+    esc = html.escape
+
+    def fmt(x: float, casas: int = 1) -> str:
+        return f"{x:.{casas}f}"
+
+    def status(r) -> str:
+        if r.overweight:
+            return '<span class="badge ng">FORA — EXCESSO DE PESO</span>'
+        if r.cg_oob:
+            return '<span class="badge ng">FORA — CG ALÉM DO LIMITE</span>'
+        return '<span class="badge">DENTRO DO ENVELOPE</span>'
+
+    fuel_l = values["fuel"]
+    burn_l = values["consumo"] * values["duracao"]
+    linhas = [
+        ("Peso Vazio", "perfil", values["empty_kg"], values["empty_cg"]),
+        ("Piloto", "assento dianteiro", values["pilot"], ARM_FRONT_SEATS),
+        ("Copiloto", "assento dianteiro", values["copilot"], ARM_FRONT_SEATS),
+        ("Passageiro 3", "assento traseiro", values["pax3"], ARM_REAR_SEATS),
+        ("Passageiro 4", "assento traseiro", values["pax4"], ARM_REAR_SEATS),
+        ("Bagagem", f"máx. {MAX_BAG_KG:.0f} kg", values["baggage"], ARM_BAGGAGE),
+        ("Combustível na Decolagem", f"{fuel_l:.0f} L × {FUEL_DENSITY} kg/L",
+         fuel_l * FUEL_DENSITY, ARM_FUEL),
+    ]
+
+    corpo = []
+    for nome, tag, kg, arm in linhas:
+        mom = "&mdash;" if kg == 0 else fmt(kg * arm / 1000, 3)
+        corpo.append(
+            f"<tr><td>{esc(nome)}<span class='tag'>{esc(tag)}</span></td>"
+            f"<td>{fmt(kg)}</td><td>{arm:.0f}</td><td>{mom}</td></tr>")
+    corpo.append(
+        f"<tr class='total'><td>TOTAL NA DECOLAGEM</td><td>{fmt(res.total)}</td>"
+        f"<td>{res.cg_mm:.0f}</td><td>{fmt(res.cg_mm * res.total / 1000)}</td></tr>")
+    corpo.append(
+        f"<tr><td>Combustível no Pouso<span class='tag'>&minus; {burn_l:.0f} L "
+        f"queimados</span></td><td>{fmt(land.fuel_kg)}</td><td>{ARM_FUEL:.0f}</td>"
+        f"<td>{fmt(land.fuel_kg * ARM_FUEL / 1000, 3)}</td></tr>")
+    corpo.append(
+        f"<tr class='total'><td>TOTAL NO POUSO</td><td>{fmt(land.total)}</td>"
+        f"<td>{land.cg_mm:.0f}</td>"
+        f"<td>{fmt(land.cg_mm * land.total / 1000)}</td></tr>")
+
+    titulo = "Sling TSi &mdash; Peso &amp; Balanço"
+    perfil = f"Perfil: {esc(profile_name)}" if profile_name else "Perfil: &mdash;"
+    quando = datetime.now().strftime("%d/%m/%Y %H:%M")
+
+    return f"""<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<title>Peso e Balanço &mdash; Sling TSi</title>
+<style>{PRINT_CSS}</style></head><body>
+<div class="noprint"><button onclick="window.print()">Imprimir</button></div>
+<header>
+  <div><h1>{titulo}</h1><div class="sub">{perfil}</div></div>
+  <div class="sub">Emitido em {quando}</div>
+</header>
+
+<h2>Aeronave &amp; Performance</h2>
+<table><tr>
+  <td style="text-align:left">Consumo<br><b>{values['consumo']:g} L/h</b></td>
+  <td style="text-align:left">Duração do voo<br><b>{values['duracao']:g} h</b></td>
+  <td style="text-align:left">Peso vazio<br><b>{fmt(values['empty_kg'])} kg</b></td>
+  <td style="text-align:left">CG vazio<br><b>{values['empty_cg']:.0f} mm</b></td>
+</tr></table>
+
+<h2>Composição de Massa</h2>
+<table>
+<thead><tr><th>Item</th><th>Peso (kg)</th><th>Braço (mm)</th>
+<th>Momento (kg&middot;m)</th></tr></thead>
+<tbody>{''.join(corpo)}</tbody></table>
+
+<div class="grid2">
+  <div class="card"><div class="k">Peso na Decolagem</div>
+    <div class="v">{fmt(res.total)} kg</div>
+    <div class="d">MTOW {MTOW_TSI:.0f} kg</div></div>
+  <div class="card"><div class="k">Na Decolagem</div>{status(res)}
+    <div class="d">{res.cg_mm:.0f} mm &middot; {res.p_mac:.1f} %MAC</div></div>
+  <div class="card"><div class="k">No Pouso</div>{status(land)}
+    <div class="d">{land.cg_mm:.0f} mm &middot; {land.p_mac:.1f} %MAC</div></div>
+</div>
+
+<h2>Envelope de CG &mdash; Peso vs CG %MAC</h2>
+<div class="chart">{envelope_svg(res, land if burn_l > 0 else None)}</div>
+
+<div class="sig"><div>Piloto em comando</div><div>Data / assinatura</div></div>
+
+<footer>
+  <span>Limites CG {CG_FWD_MM:.0f}&ndash;{CG_AFT_MM:.0f} mm &middot;
+  MTOW {MTOW_TSI:.0f} kg &middot; combustível {FUEL_DENSITY} kg/L</span>
+  <span>Envelope aproximado &mdash; consulte o POH.</span>
+</footer>
+<script>window.addEventListener("load", function () {{
+  setTimeout(function () {{ window.print(); }}, 350);
+}});</script>
+</body></html>"""
 
 
 # ══════════════════════════════════════════════════════════════════════
@@ -403,6 +620,30 @@ def run_gui(prefill: dict[str, float] | None = None) -> None:
         rebuild_profile_menu()
         lbl_save_msg.configure(text=f"✓ Perfil “{name}” salvo")
         root.after(2500, lambda: lbl_save_msg.configure(text=""))
+
+    def print_sheet() -> None:
+        """Gera a folha A4 e abre o diálogo de impressão do navegador."""
+        values = {k: num(FIELD_VARS[k],
+                         DEFAULT_EMPTY_KG if k == "empty_kg" else
+                         DEFAULT_EMPTY_CG_MM if k == "empty_cg" else 0.0)
+                  for k in PROFILE_FIELDS}
+        res = calc_wb(values["empty_kg"], values["empty_cg"], values["pilot"],
+                      values["copilot"], values["pax3"], values["pax4"],
+                      values["baggage"], values["fuel"])
+        land = calc_landing(res, values["consumo"], values["duracao"])
+        page = Path(tempfile.gettempdir()) / "sling_tsi_wb_impressao.html"
+        try:
+            page.write_text(
+                build_print_html(values, res, land, active_profile["name"]),
+                encoding="utf-8")
+        except OSError as exc:
+            messagebox.showerror("Imprimir",
+                                 "Não foi possível gerar a folha:" + chr(10)
+                                 + str(exc), parent=root)
+            return
+        webbrowser.open(page.as_uri())
+        lbl_save_msg.configure(text="✓ Folha A4 aberta no navegador")
+        root.after(3500, lambda: lbl_save_msg.configure(text=""))
 
     def manage_profiles() -> None:
         win = tk.Toplevel(root, bg=C_BG)
@@ -847,6 +1088,10 @@ def run_gui(prefill: dict[str, float] | None = None) -> None:
               bg=C_PANEL2, activebackground=C_LINE, activeforeground=C_TEXT,
               relief="flat", padx=16, pady=8, cursor="hand2",
               command=lambda: manage_profiles()).pack(side="left", padx=(8, 0))
+    tk.Button(save_row, text="Imprimir (A4 P&B)", font=(UI, 9), fg=C_TEXT,
+              bg=C_PANEL2, activebackground=C_LINE, activeforeground=C_TEXT,
+              relief="flat", padx=16, pady=8, cursor="hand2",
+              command=lambda: print_sheet()).pack(side="left", padx=(8, 0))
     lbl_save_msg = tk.Label(save_row, text="", font=f_hint, fg=C_OK, bg=C_BG)
     lbl_save_msg.pack(side="left", padx=12)
 
