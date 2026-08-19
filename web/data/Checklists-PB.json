@@ -1,0 +1,3254 @@
+{ "metadata": { "name": "Checklists",
+    "makeAndModel": "Sling TSI 2026",
+    "aircraftInfo": "PT-TSI",
+    "manufacturerInfo": "TAF - The Aircraft Company",
+    "copyrightInfo": "Copyright Information"
+  },
+  "groups": [
+    { "title": "Procedimentos normais",
+      "groups": [
+        { "title": "Inspeção Pré-voo (4.3)",
+          "checklists": [
+            { "title": "Cabine (4.3.1)",
+              "items": [
+                { "prompt": "A palavra \"condição\" nas instruções significa uma inspeção visual da superfície em busca de danos, deformações, arranhões, abrasões, corrosão ou outros danos que possam comprometer a segurança de voo.",
+                  "type": "ITEM_NOTE",
+                  "centered": true
+                },
+                { "prompt": "Circuitos de Ignição",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Chave Mestre",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Combustível",
+                  "expectation": "QUANTIDADE",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Flaps",
+                  "expectation": "TODOS ESTÁGIOS - VERIFICAR SIMETRIA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Aviônicos",
+                  "expectation": "CONDIÇÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Chave Mestre",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Comandos (todos)",
+                  "expectation": "MOVIMENTO TOTAL",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Verificar a segurança das fivelas e pontos de fixação. Certificar-se de que o mecanismo de ajuste do assento está travado corretamente após o ajuste.",
+                  "type": "ITEM_NOTE",
+                  "indent": 1
+                },
+                { "prompt": "Cintos e Assentos",
+                  "expectation": "FIXADOS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Capota e Para-brisa",
+                  "expectation": "INTEGRIDADE e LIMPEZA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Portas",
+                  "expectation": "SEGURANÇA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Cabine",
+                  "expectation": "FIXAR OBJETOS SOLTOS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Extintor de Incêndio",
+                  "expectation": "PRESENÇA e VALIDADE",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Documentos como Certificado de Matrícula, Certificado de Aeronavegabilidade, Manual de Operação, Check list, Diário de Bordo, Licença de Estação, Seguro RETA .",
+                  "type": "ITEM_NOTE",
+                  "indent": 1
+                },
+                { "prompt": "Documentação",
+                  "expectation": "PRESENÇA e VALIDADE",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Fuselagem (4.3.2)",
+              "items": [
+                { "prompt": "A palavra \"condição\" nas instruções significa uma inspeção visual da superfície em busca de danos, deformações, arranhões, abrasões, corrosão ou outros danos que possam comprometer a segurança de voo.",
+                  "type": "ITEM_NOTE",
+                  "centered": true
+                },
+                { "prompt": "Condição da Superfície",
+                  "expectation": "VERIFICAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Carenagem Asa/Fuselagem",
+                  "expectation": "VERIFICAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Carenagem da Empenagem",
+                  "expectation": "VERIFICAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Antenas",
+                  "expectation": "CONDIÇÃO e SEGURANÇA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Porta do Compartimento de Bagagem",
+                  "expectation": "FECHADA e TRAVADA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Empenagem (4.3.3)",
+              "items": [
+                { "prompt": "A palavra \"condição\" nas instruções significa uma inspeção visual da superfície em busca de danos, deformações, arranhões, abrasões, corrosão ou outros danos que possam comprometer a segurança de voo.",
+                  "type": "ITEM_NOTE",
+                  "centered": true
+                },
+                { "prompt": "Corda de Amarração",
+                  "expectation": "REMOVIDA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Estabilizador Horizontal",
+                  "expectation": "CONDIÇÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Estabilizador Vertical",
+                  "expectation": "CONDIÇÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Profundor",
+                  "expectation": "CONDIÇÃO e MOVIMENTO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Trim do Profundor",
+                  "expectation": "CONDIÇÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Leme de Direção",
+                  "expectation": "CONDIÇÃO e MOVIMENTO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Dobradiças, Parafusos, Hastes de Comando",
+                  "expectation": "CONDIÇÃO e SEGURANÇA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Luz Estroboscópica",
+                  "expectation": "CONDIÇÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Asa Direita e Trem Principal Direito (4.3.4)",
+              "items": [
+                { "prompt": "A palavra \"condição\" nas instruções significa uma inspeção visual da superfície em busca de danos, deformações, arranhões, abrasões, corrosão ou outros danos que possam comprometer a segurança de voo.",
+                  "type": "ITEM_NOTE",
+                  "centered": true
+                },
+                { "prompt": "Carenagem da Roda",
+                  "expectation": "CONDIÇÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Roda e Freios",
+                  "expectation": "CONDIÇÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Verificar vazamentos de fluido, condição das pastilhas e discos de freio, condição dos pneus e calibragem. Atenção especial aos seguintes itens para verificar calibragem adequada:",
+                  "type": "ITEM_NOTE",
+                  "indent": 1
+                },
+                { "prompt": "- Linhas de desgaste externas",
+                  "type": "ITEM_PLAINTEXT",
+                  "indent": 2
+                },
+                { "prompt": "- Deflexão da lateral do pneu",
+                  "type": "ITEM_PLAINTEXT",
+                  "indent": 2
+                },
+                { "prompt": "Amortecedores das Rodas",
+                  "expectation": "CONDIÇÃO e RACHADURAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Calços",
+                  "expectation": "REMOVER",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Flaps",
+                  "expectation": "SEGURANÇA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Flaps (Dobradiças, Corneta de Comando, Haste)",
+                  "expectation": "CONDIÇÃO e SEGURANÇA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bordo de Fuga da Asa",
+                  "expectation": "CONDIÇÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Aileron",
+                  "expectation": "SEGURANÇA e MOVIMENTO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Aileron (Dobradiças, Corneta de Comando, Haste)",
+                  "expectation": "CONDIÇÃO e SEGURANÇA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Ponta de Asa",
+                  "expectation": "CONDIÇÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Luz de Navegação",
+                  "expectation": "CONDIÇÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Lente da Luz de Taxi/Pouso",
+                  "expectation": "CONDIÇÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bordo de Ataque da Asa",
+                  "expectation": "CONDIÇÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Respiro do Combustível (parte inferior da asa)",
+                  "expectation": "DESOBSTRUÍDO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Verificar fisicamente o nível de combustível antes de cada decolagem. O combustível pode ser visto através da tampa do bocal, cobrindo o fundo do tanque quando há 30 litros presentes.",
+                  "type": "ITEM_WARNING",
+                  "centered": true
+                },
+                { "prompt": "Quantidade de Combustível",
+                  "expectation": "VERIFICAR PELO BOCAL",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Tomada Estática",
+                  "expectation": "CONDIÇÕES",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Seção do Nariz e Trem de Nariz (4.3.5)",
+              "items": [
+                { "prompt": "A palavra \"condição\" nas instruções significa uma inspeção visual da superfície em busca de danos, deformações, arranhões, abrasões, corrosão ou outros danos que possam comprometer a segurança de voo.",
+                  "type": "ITEM_NOTE",
+                  "centered": true
+                },
+                { "prompt": "Carenagem do Motor",
+                  "expectation": "CONDIÇÃO e SEGURANÇA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Hélice e Spinner",
+                  "expectation": "CONDIÇÃO e SEGURANÇA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Entradas de Ar",
+                  "expectation": "CONDIÇÃO e OBSTRUÇÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Radiadores",
+                  "expectation": "CONDIÇÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Suporte do Motor",
+                  "expectation": "CONDIÇÃO e SEGURANÇA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Coletor de Escapamento",
+                  "expectation": "CONDIÇÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Vazamentos",
+                  "expectation": "SAÍDAS DA CARENAGEM",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Para verificar o nível de óleo, retirar a tampa do bujão, girar a hélice no sentido do vôo até ouvir o \"arroto\". Retirar a vareta verificando o nível no rebaixo da vareta ",
+                  "type": "ITEM_PLAINTEXT",
+                  "indent": 1
+                },
+                { "prompt": "Durante o giro manual, certificar-se de que os circuitos de ignição estão DESLIGADOS. Sempre manusear a área da pá da hélice com a palma da mão, e não apenas com as pontas dos dedos.",
+                  "type": "ITEM_CAUTION",
+                  "centered": true
+                },
+                { "prompt": "Óleo do Motor",
+                  "expectation": "VERIFICAR NÍVEL COM VARETA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Líquido de Arrefecimento",
+                  "expectation": "NÍVEL",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Roda do Trem de Nariz",
+                  "expectation": "CONDIÇÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Calços",
+                  "expectation": "REMOVER",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Não encher o nível do líquido de arrefecimento até a marca máxima no reservatório de expansão fixado no painel corta-fogo. A melhor prática é manter o nível ligeiramente acima da marca mínima quando frio. Em caso de dúvida sobre o nível, remover a tampa do radiador (somente quando frio) para verificar a presença de fluido.",
+                  "type": "ITEM_NOTE",
+                  "indent": 1
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Asa Esquerda (4.3.6)",
+              "items": [
+                { "prompt": "A palavra \"condição\" nas instruções significa uma inspeção visual da superfície em busca de danos, deformações, arranhões, abrasões, corrosão ou outros danos que possam comprometer a segurança de voo.",
+                  "type": "ITEM_NOTE",
+                  "centered": true
+                },
+                { "prompt": "Quantidade de Combustível",
+                  "expectation": "VERIFICAR PELO BOCAL",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Verificar fisicamente o nível de combustível antes de cada decolagem. O combustível pode ser visto através da tampa do bocal, cobrindo o fundo do tanque quando há 30 litros presentes.",
+                  "type": "ITEM_WARNING",
+                  "centered": true
+                },
+                { "prompt": "Respiro do Combustível (parte inferior da asa)",
+                  "expectation": "DESOBSTRUIDO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Tubo de Pitot",
+                  "expectation": "CONDIÇÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bordo de Ataque da Asa",
+                  "expectation": "CONDIÇÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Lente da Luz de Taxi/Pouso",
+                  "expectation": "CONDIÇÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Ponta de Asa",
+                  "expectation": "CONDIÇÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Luz de Navegação",
+                  "expectation": "CONDIÇÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Aileron",
+                  "expectation": "SEGURANÇA e MOVIMENTO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Aileron (Dobradiças, Corneta de Comando, Haste)",
+                  "expectation": "CONDIÇÃO e SEGURANÇA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bordo de Fuga da Asa",
+                  "expectation": "CONDIÇÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Flaps",
+                  "expectation": "SEGURANÇA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Flaps (Dobradiças, Corneta de Comando, Haste)",
+                  "expectation": "CONDIÇÃO e SEGURANÇA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Carenagem da Roda",
+                  "expectation": "CONDIÇÃO e SEGURANÇA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Roda e Freios",
+                  "expectation": "CONDIÇÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Verificar vazamentos de fluido, condição das pastilhas e discos de freio, condição dos pneus e calibragem. Atenção especial aos seguintes itens para verificar calibragem adequada:",
+                  "type": "ITEM_NOTE",
+                  "indent": 1
+                },
+                { "prompt": "- Linhas de desgaste externas",
+                  "type": "ITEM_PLAINTEXT",
+                  "indent": 2
+                },
+                { "prompt": "- Deflexão da lateral do pneu",
+                  "type": "ITEM_PLAINTEXT",
+                  "indent": 2
+                },
+                { "prompt": "Amortecedores das Rodas",
+                  "expectation": "CONDIÇÃO e RACHADURAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Calços",
+                  "expectation": "REMOVER",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            }
+          ],
+          "category": "normal"
+        },
+        { "title": "Partida do Motor e Taxiamento (4.4)",
+          "checklists": [
+            { "title": "Antes da Partida do Motor (4.4.1)",
+              "items": [
+                { "prompt": "Inspeção Pré-voo",
+                  "expectation": "COMPLETO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Equipamento de Emergência",
+                  "expectation": "A BORDO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Briefing de Passageiros",
+                  "expectation": "COMPLETO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Assentos e Cintos",
+                  "expectation": "AJUSTADOS E FIXOS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Freio de Estacionamento",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Disjuntores",
+                  "expectation": "REPOSTOS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Partida do Motor (4.4.2)",
+              "items": [
+                { "prompt": "Seletor de Combustível",
+                  "expectation": "TANQUE MAIS VAZIO (se não estiver vazio)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Chave de Backup do EFIS",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Chave Principal do EFIS",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Chave de Backup da ECU",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Chave Mestre",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Circuitos de Ignição",
+                  "expectation": "LIGADO (A e B)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bomba de Combustível Auxiliar",
+                  "expectation": "LIGADA (Pressão de Combustível e Sem Ruído Anormal)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bomba de Combustível Auxiliar",
+                  "expectation": "DESLIGADA (Após 5 seg)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bomba de Combustível Principal",
+                  "expectation": "LIGADA (Pressão de Combustível e Sem Ruído Anormal)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Chave de Backup da ECU",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Manete do Motor",
+                  "expectation": "AJUSTADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Como o motor tende a vibrar significativamente com ajustes baixos de manete na partida, iniciar o motor com a manete ajustada conforme o gráfico de Posição da Manete na Partida (4.4.2.1) para atingir aproximadamente 2.000 RPM.",
+                  "type": "ITEM_NOTE",
+                  "indent": 1
+                },
+                { "prompt": "Hélice",
+                  "expectation": "ÁREA LIVRE",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Motor de Partida",
+                  "expectation": "ACIONAR (Máx. 10 seg)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "O motor de partida pode ser acionado por no máximo 10 segundos, seguido de uma pausa de 2 minutos para resfriamento.",
+                  "type": "ITEM_CAUTION",
+                  "centered": true
+                },
+                { "prompt": "Pressão de Óleo",
+                  "expectation": "VERIFICAR (Correto em 10 seg)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Aumentar a rotação do motor apenas 10 segundos após a partida, se a pressão de óleo estiver estável acima de 2 bar (29 psi).",
+                  "type": "ITEM_CAUTION",
+                  "centered": true
+                },
+                { "prompt": "Manete do Motor",
+                  "expectation": "+ e - 2500 RPM",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Luzes de Circuito",
+                  "expectation": "VERIFICAR DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Alternador B",
+                  "expectation": "VERIFICAR VOLTAGEM",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "A tensão do barramento principal deve subir de +/- 12,5V para acima de 13V quando a rotação do motor for mantida em ou acima de 2500 RPM por mais de 5 segundos. Isso indica que o Alternador B foi ativado pela ECU.",
+                  "type": "ITEM_NOTE",
+                  "indent": 1
+                },
+                { "prompt": "Aviônicos",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Temperatura do Óleo",
+                  "expectation": "2500 RPM até temp. óleo > 50°C (122°F)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Quando o óleo está abaixo de 50°C, o filtro de óleo é contornado devido à viscosidade elevada. Ajustes significativos de manete não devem ser utilizados durante este período, pois podem causar danos.",
+                  "type": "ITEM_NOTE",
+                  "indent": 1
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Taxiamento (4.4.3)",
+              "items": [
+                { "prompt": "Flaps",
+                  "expectation": "RECOLHIDO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Freios",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Trim",
+                  "expectation": "NEUTRO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Potência",
+                  "expectation": "CONFORME NECESSÁRIO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Freios",
+                  "expectation": "VERIFICAR NO TAXIAMENTO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            }
+          ],
+          "category": "normal"
+        },
+        { "title": "Antes da Decolagem (4.5)",
+          "checklists": [
+            { "title": "Aquecimento e Pré-Decolagem (4.5.1)",
+              "items": [
+                { "prompt": "A ser realizado em ponto de espera ou equivalente",
+                  "type": "ITEM_TITLE",
+                  "centered": true
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Direção",
+                  "expectation": "CONTRA O VENTO A 45° EM RELAÇÃO À PISTA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Temperatura do Óleo",
+                  "expectation": "ACIMA DE 40°C",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Seletor de Combustível",
+                  "expectation": "TANQUE MAIS CHEIO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Rotação do Motor",
+                  "expectation": "4000 RPM",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Verificação de Circuito",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Circuito B",
+                  "expectation": "DESLIGADO-LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Circuito A",
+                  "expectation": "DESLIGADO-LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Desligar cada circuito por 2 segundos e ligar novamente. Aguardar até que a luz de aviso do circuito se apague (+/- 5 seg) antes de passar para o próximo circuito/verificação. Variação máxima de 250 RPM durante a verificação.",
+                  "type": "ITEM_NOTE",
+                  "indent": 1
+                },
+                { "prompt": "Bomba de Combustível Principal",
+                  "expectation": "PRINCIPAL LIGADA e AUXILIAR DESLIGADA (Verificar Pressão de Combustível)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bomba de Combustível Auxiliar",
+                  "expectation": "AUXILIAR LIGADA e PRINCIPAL DESLIGADA (Verificar Pressão de Combustível)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bombas de Combustível",
+                  "expectation": "AMBAS LIGADAS (Principal e Auxiliar)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Hélice",
+                  "expectation": "VERIFICAR FUNCIONAMENTO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Verificação do Funcionamento do governador da Hélice",
+                  "type": "ITEM_TITLE",
+                  "indent": 1
+                },
+                { "prompt": "Ajustar o controlador da hélice para MAN (Manual)",
+                  "type": "ITEM_CHALLENGE",
+                  "indent": 2
+                },
+                { "prompt": "Ajustar passo COARSE +/-500 RPM",
+                  "type": "ITEM_CHALLENGE",
+                  "indent": 2
+                },
+                { "prompt": "Ajustar passo FINE +/- 500 RPM",
+                  "type": "ITEM_CHALLENGE",
+                  "indent": 2
+                },
+                { "prompt": "Ajustar passo COARSE +/- 500 RPM",
+                  "type": "ITEM_CHALLENGE",
+                  "indent": 2
+                },
+                { "prompt": "Ajustar controlador da hélice para AUTO",
+                  "type": "ITEM_CHALLENGE",
+                  "indent": 2
+                },
+                { "prompt": "Confirmar retorno à rotação de 4.000 RPM",
+                  "type": "ITEM_CHALLENGE",
+                  "indent": 2
+                },
+                { "prompt": "Rotação do Motor",
+                  "expectation": "2500 RPM",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Trim",
+                  "expectation": "NEUTRO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Flaps",
+                  "expectation": "ESTÁGIO 1 e DECOLAGEM",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Comandos",
+                  "expectation": "LIVRES E CORRESPONDENTES",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Quantidade de Combustível",
+                  "expectation": "VERIFICAR (Suficiente para o voo planejado)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Disjuntores",
+                  "expectation": "REPOSTOS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Switches",
+                  "expectation": "TODOS LIGADOS EXCETO ECU BKP",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Instrumentos",
+                  "expectation": "VERIFICAR E AJUSTAR TODOS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Parâmetros do Motor",
+                  "expectation": "VERIFICAR (Temp. e Press. e Tensão)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Portas",
+                  "expectation": "FECHADAS e TRAVADAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Cintos",
+                  "expectation": "FIXO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Briefing de Passageiros",
+                  "expectation": "REALIZAR BRIEFING",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            }
+          ],
+          "category": "normal"
+        },
+        { "title": "Decolagem (4.6)",
+          "checklists": [
+            { "title": "Decolagem (4.6)",
+              "items": [
+                { "prompt": "A decolagem é proibida se:",
+                  "type": "ITEM_WARNING",
+                  "centered": true
+                },
+                { "prompt": "- O motor estiver funcionando de forma irregular ou intermitente.",
+                  "type": "ITEM_PLAINTEXT",
+                  "indent": 1
+                },
+                { "prompt": "- Os parâmetros do motor (indicações dos instrumentos) estiverem fora dos limites operacionais.",
+                  "type": "ITEM_PLAINTEXT",
+                  "indent": 1
+                },
+                { "prompt": "- O componente de vento cruzado exceder os limites permitidos (15 nós).",
+                  "type": "ITEM_PLAINTEXT",
+                  "indent": 1
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Certificar-se de que a temperatura do óleo do motor está acima de 50°C antes da decolagem.",
+                  "type": "ITEM_CAUTION",
+                  "centered": true
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Manete do Motor",
+                  "expectation": "TOTAL",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Rotação do Motor",
+                  "expectation": "5800 RPM",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Comando do Profundor",
+                  "expectation": "NEUTRO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Parâmetros do Motor",
+                  "expectation": "VERIFICAR (Temp. e Press.)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Rotação (Decolagem)",
+                  "expectation": "55 KIAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Velocidade Aerodinâmica",
+                  "expectation": "75 KIAS (Vy)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Freios",
+                  "expectation": "APLICAR PARA PARAR GIRO DAS RODAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Mínimo 75 KIAS / 400 pés de altitude",
+                  "type": "ITEM_PLAINTEXT"
+                },
+                { "prompt": "Flaps",
+                  "expectation": "RECOLHIDO",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Farol de Pouso",
+                  "expectation": "DESLIGAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Potência",
+                  "expectation": "5500 RPM após 5min",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Subida",
+                  "expectation": "INICIAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Subida com o motor a 5.800 RPM é permitida por 5 minutos. Após esse período, aplica-se um máximo contínuo de 5.500 RPM.",
+                  "type": "ITEM_CAUTION",
+                  "centered": true
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            }
+          ],
+          "category": "normal"
+        },
+        { "title": "Voo (4.7)",
+          "checklists": [
+            { "title": "Subida (4.7.1)",
+              "items": [
+                { "prompt": "Manete do Motor",
+                  "expectation": "95% (max 5500 RPM)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Hélice",
+                  "expectation": "CLIMB",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "A melhor prática é limitar o uso de 5.800 RPM apenas quando necessário, como na decolagem e subida de emergência.",
+                  "type": "ITEM_NOTE",
+                  "indent": 1
+                },
+                { "prompt": "Velocidade Aerodinâmica",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Vx",
+                  "expectation": "65 KIAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Vy",
+                  "expectation": "75 KIAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Cruzeiro",
+                  "expectation": "85 - 100 KIAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Parâmetros do Motor",
+                  "expectation": "VERIFICAR (Temp. e Press.)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Se a temperatura da cabeça do cilindro ou do óleo se aproximar dos limites, reduzir o ângulo de subida para aumentar a velocidade aerodinâmica e manter-se dentro dos limites.",
+                  "type": "ITEM_CAUTION",
+                  "centered": true
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Cruzeiro (4.7.2)",
+              "items": [
+                { "prompt": "Bomba de Combustível Auxiliar",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Hélice",
+                  "expectation": "CRUISE",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Manete do Motor",
+                  "expectation": "78% sugerido",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Velocidade Aerodinâmica",
+                  "expectation": "108 - 145 KIAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Combustível",
+                  "expectation": "ALTERNAR A CADA HORA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bomba auxiliar ligada durante a troca",
+                  "type": "ITEM_PLAINTEXT",
+                  "indent": 1
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Descida (4.7.3)",
+              "items": [
+                { "prompt": "ATIS / Meteorologia",
+                  "expectation": "VERIFICADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Altímetro",
+                  "expectation": "AJUSTADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Seletor de Combustível",
+                  "expectation": "TANQUE MAIS CHEIO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bomba auxiliar ligada durante a troca",
+                  "type": "ITEM_PLAINTEXT",
+                  "indent": 1
+                },
+                { "prompt": "Luzes",
+                  "expectation": "CONFORME NECESSÁRIO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Cintos de Segurança",
+                  "expectation": "VERIFICADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Briefing de Aproximação",
+                  "expectation": "COMPLETO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            }
+          ],
+          "category": "normal"
+        },
+        { "title": "Pouso (4.8)",
+          "checklists": [
+            { "title": "Antes do Pouso (4.8.1)",
+              "items": [
+                { "prompt": "Freio de Estacionamento",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bombas de Combustível",
+                  "expectation": "AMBAS LIGADAS (Auxiliar e Principal)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Velocidade Aerodinâmica",
+                  "expectation": "75 KIAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Flaps",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Perna do Vento",
+                  "expectation": "ESTÁGIO 1",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Base",
+                  "expectation": "ESTÁGIO 2",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Cintos",
+                  "expectation": "PASSADOS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Luz de Pouso",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Aproximação (4.8.2)",
+              "items": [
+                { "prompt": "Velocidade Aerodinâmica",
+                  "expectation": "70 - 75 KIAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Hélice",
+                  "expectation": "T.O. (5800 RPM)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Flaps",
+                  "expectation": "TOTAL NA FINAL",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "O ponto de captação do tanque de combustível está localizado na parte inferior da parede interna. Em operação normal, o diedro da asa garante que o combustível sempre esteja presente na captação. A aeronave nunca deve ser submetida a um derrapamento lateral sustentado em direção a um tanque quase vazio que esteja sendo utilizado. Isso pode expor o ponto de captação ao ar, afamando o motor e causando sua parada. Isso é particularmente perigoso em baixas altitudes durante uma aproximação.",
+                  "type": "ITEM_WARNING",
+                  "centered": true
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Pouso Normal (4.8.3)",
+              "items": [
+                { "prompt": "Velocidade Aerodinâmica a 50 pés",
+                  "expectation": "70 KIAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Potência",
+                  "expectation": "MÍNIMA NO EFEITO SOLO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Flare",
+                  "expectation": "ATÉ A VELOCIDADE MÍNIMA DE VOO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Toque",
+                  "expectation": "TREM PRINCIPAL PRIMEIRO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Freios",
+                  "expectation": "APLICAR CONFORME NECESSÁRIO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Após o Pouso (Pista Liberada) (4.8.4)",
+              "items": [
+                { "prompt": "Flaps",
+                  "expectation": "RECOLHIDO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bomba de Combustível Auxiliar",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Luz de Pouso",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Transponder",
+                  "expectation": "2000",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Corte do Motor (4.8.5)",
+              "items": [
+                { "prompt": "Devem passar pelo menos 5 minutos entre o pouso e o corte do motor. Se a temperatura ambiente estiver excessivamente quente e causar elevação da temperatura do líquido de arrefecimento, o motor pode ser desligado antes dos 5 minutos.",
+                  "type": "ITEM_NOTE",
+                  "centered": true
+                },
+                { "prompt": "Rotação do Motor",
+                  "expectation": "MÍNIMO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Freio de Estacionamento",
+                  "expectation": "AJUSTADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Parâmetros do Motor",
+                  "expectation": "DENTRO DOS LIMITES",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Circuito B",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Circuito A",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bomba de Combustível Principal",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "EFIS",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Chave Mestre",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Todas as Chaves",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Seletor de Combustível",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "O resfriamento rápido do motor deve ser evitado durante a operação. Isso pode ocorrer durante a descida e o taxiamento, em cenários de baixa rotação do motor. Em condições normais, as temperaturas do motor se estabilizam durante a descida e o taxiamento a valores adequados para o desligamento. Se as temperaturas estiverem instáveis (altas ou baixas), operar o motor a +/- 3.000 RPM por no mínimo 2 minutos para estabilizar as temperaturas antes do desligamento.",
+                  "type": "ITEM_CAUTION",
+                  "centered": true
+                },
+                { "prompt": "Manete do Paraquedas",
+                  "expectation": "INSERIR TRAVA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            }
+          ],
+          "category": "normal"
+        },
+        { "title": "Procedimentos Especiais (4.9)",
+          "checklists": [
+            { "title": "Arremetida / Pouso Rejeitado (4.9.1)",
+              "items": [
+                { "prompt": "Manete do Motor",
+                  "expectation": "TOTAL",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Motor",
+                  "expectation": "CONFIRMAR 5800 RPM",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Flaps",
+                  "expectation": "ESTÁGIO 2",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "75 KIAS e min 400ft",
+                  "type": "ITEM_PLAINTEXT"
+                },
+                { "prompt": "Flaps",
+                  "expectation": "RECOLHIDO",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Bomba de Combustível Auxiliar",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Completar o circuito para uma nova aproximação",
+                  "type": "ITEM_CHALLENGE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Decolagem em Pista Curta (4.9.2)",
+              "items": [
+                { "prompt": "Comprimento da Pista",
+                  "expectation": "MEDIDO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Calcular a Altitude-Densidade antes da decolagem e certificar-se de que o comprimento da pista está dentro da capacidade da aeronave.",
+                  "type": "ITEM_NOTE",
+                  "indent": 1
+                },
+                { "prompt": "Ponto de Abortagem",
+                  "expectation": "MARCADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Peso da Aeronave",
+                  "expectation": "MINIMIZAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Posição na Pista",
+                  "expectation": "MÁXIMO COMPRIMENTO POSSÍVEL À FRENTE",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Profundor e Trim",
+                  "expectation": "NEUTRO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Flaps",
+                  "expectation": "ESTÁGIO 2",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Freio de Estacionamento",
+                  "expectation": "TOTAL",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Manete do Motor",
+                  "expectation": "TOTALMENTE ABERTA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Parâmetros do Motor",
+                  "expectation": "VERIFICAR (Temp. e Press.)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Freio de Estacionamento",
+                  "expectation": "SOLTAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Rotação (Decolagem)",
+                  "expectation": "50 KIAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Abortar",
+                  "expectation": "SE NÃO ESTIVER EM VOO AO ATINGIR O PONTO DE ABORTAGEM",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Subida",
+                  "expectation": "MELHOR ÂNGULO (Vx - 65 KIAS)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Pouso em Pista Curta (4.9.3)",
+              "items": [
+                { "prompt": "Aproximação",
+                  "expectation": "RASANTE e COM POTÊNCIA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Manete do Motor",
+                  "expectation": "CONFORME NECESSÁRIO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Velocidade de Aproximação",
+                  "expectation": "65 - 70 KIAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Ter cuidado ao se aproximar em baixas velocidades, pois os efeitos de rajadas de vento serão amplificados.",
+                  "type": "ITEM_NOTE",
+                  "indent": 1
+                },
+                { "prompt": "Manete do Motor",
+                  "expectation": "MÍNIMO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Flare",
+                  "expectation": "INICIAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Toque",
+                  "expectation": "TREM PRINCIPAL PRIMEIRO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Frenagem",
+                  "expectation": "INTENSO (se ultrapassamento da pista for possível)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Se houver risco de ultrapassamento da pista",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Circuitos de Ignição",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Pouso em Pista não Pavimentada(4.9.4)",
+              "items": [
+                { "prompt": "Flaps",
+                  "expectation": "TOTAL",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Aproximação",
+                  "expectation": "RASANTE COM POTÊNCIA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Velocidade de Aproximação",
+                  "expectation": "70 - 75 KIAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Flare",
+                  "expectation": "Acima da Cabeceira",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Potência",
+                  "expectation": "MÍNIMO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Hold Off",
+                  "expectation": "NO EFEITO SOLO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "0,5 m / 2 pés acima da pista",
+                  "type": "ITEM_PLAINTEXT",
+                  "indent": 1
+                },
+                { "prompt": "Velocidade",
+                  "expectation": "55 KIAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Rodas Principais",
+                  "expectation": "TOCAR ANTES DO ESTOL",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Roda do Trem de Nariz",
+                  "expectation": "SUSTENTAR COM PROFUNDOR TOTALMENTE PUXADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Decolagem em Pista não Pavimentada (4.9.5)",
+              "items": [
+                { "prompt": "Peso da Aeronave",
+                  "expectation": "MINIMIZAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Trim do Profundor",
+                  "expectation": "NEUTRO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Flaps",
+                  "expectation": "ESTÁGIO 2",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Hélice",
+                  "expectation": "T.O.",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Freio de Estacionamento",
+                  "expectation": "TOTAL",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Manete do Motor",
+                  "expectation": "TOTALMENTE ABERTA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Parâmetros do Motor",
+                  "expectation": "VERIFICAR (Temp. e Press.)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Freio de Estacionamento",
+                  "expectation": "SOLTAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Profundor",
+                  "expectation": "TOTALMENTE PUXADO ATÉ NARIZ LEVANTAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Manter nariz levemente levantado",
+                  "type": "ITEM_PLAINTEXT"
+                },
+                { "prompt": "Decolagem",
+                  "expectation": "61 KIAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Decolagem com Vento Cruzado (4.9.6)",
+              "items": [
+                { "prompt": "Verificações Pré-Decolagem",
+                  "expectation": "NORMAL",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Aileron",
+                  "expectation": "TOTAL CONTRA O VENTO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Procedimento de Decolagem",
+                  "expectation": "NORMAL",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Aileron",
+                  "expectation": "REDUZIR INPUT CONFORME NECESSÁRIO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "À medida que a aeronave acelera, o piloto deve reduzir o input de aileron para evitar que a asa toque o solo. Normalmente, apenas um leve ângulo de rolagem contra o vento é necessário para manter a aeronave alinhada.",
+                  "type": "ITEM_NOTE",
+                  "centered": true
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Pouso com Vento Cruzado (4.9.7)",
+              "items": [
+                { "prompt": "Procedimento de Aproximação",
+                  "expectation": "NORMAL",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Aproximação",
+                  "expectation": "COM POTÊNCIA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Aproximação Final",
+                  "expectation": "LONGA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Leme de Direção",
+                  "expectation": "CONTRA O VENTO CRUZADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Flare",
+                  "expectation": "SOBRE A CABECEIRA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Ângulo de Rolagem",
+                  "expectation": "NIVELADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Leme de Direção",
+                  "expectation": "APLICAR OPOSTO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Direção",
+                  "expectation": "ALINHAR COM A PISTA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Trem Principal",
+                  "expectation": "TOCAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Roda do Trem de Nariz",
+                  "expectation": "SUSTENTAR FORA DO SOLO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Freios",
+                  "expectation": "APLICAR ASSIM QUE NARIZ TOCAR SOLO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            }
+          ],
+          "category": "normal"
+        }
+      ]
+    },
+    { "title": "Emergências",
+      "groups": [
+        { "title": "Paraquedas (9.3)",
+          "checklists": [
+            { "title": "Acionamento do BRS (9.3.2 e 9.3.3)",
+              "items": [
+                { "prompt": "Velocidade Aerodinâmica",
+                  "expectation": "< 155 KIAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Acionar tão devagar quanto possível",
+                  "type": "ITEM_PLAINTEXT",
+                  "indent": 1
+                },
+                { "prompt": "É desejável desligar o motor antes da ativação do SLTSCM-08 se o tempo e a altitude permitirem.",
+                  "type": "ITEM_NOTE"
+                },
+                { "prompt": "Manete do Motor",
+                  "expectation": "MÍNIMO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Circuitos de Ignição (A e B)",
+                  "expectation": "AMBAS DESLIGADAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Paraquedas",
+                  "expectation": "ACIONAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Puxar a alavanca de ativação (com ambas as mãos até a alavanca estar totalmente estendida)",
+                  "type": "ITEM_PLAINTEXT",
+                  "indent": 1
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Procedimento Após Acionamento",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Aproximadamente 21 kg de força são necessários para ativar o SLTSCM-08.",
+                  "type": "ITEM_NOTE",
+                  "indent": 1
+                },
+                { "prompt": "Circuitos de Ignição (A e B)",
+                  "expectation": "VERIFICAR DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bombas de Combustível Principal e Auxiliar",
+                  "expectation": "AMBAS DESLIGADAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Seletora de Combustível",
+                  "expectation": "DESLIGADA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "ELT",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Cintos",
+                  "expectation": "FIXOS E APERTADOS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Objetos Soltos",
+                  "expectation": "FIXO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Posição de Pouso de Emergência",
+                  "expectation": "ASSUMIR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Colocar ambas as mãos atrás da cabeça, dedos entrelaçados, cotovelos à frente para proteger a cabeça e o rosto. Manter o torso superior ereto.",
+                  "type": "ITEM_PLAINTEXT",
+                  "indent": 1
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Se o tempo permitir, declarar a emergência e anunciar a ativação do SLTSCM-08 antes de desligar os Aviônicos",
+                  "type": "ITEM_PLAINTEXT"
+                },
+                { "prompt": "Aviônicos",
+                  "expectation": "DESLIGADOS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Chave Mestre",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            }
+          ],
+          "category": "emergency"
+        },
+        { "title": "Emergências Relacionadas ao Motor (3.3)",
+          "checklists": [
+            { "title": "Falha do Motor Durante a Decolagem (3.3.1)",
+              "items": [
+                { "prompt": "Manete do Motor",
+                  "expectation": "MÍNIMO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Freios",
+                  "expectation": "APLICAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "com a aeronave sob controle -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Circuitos de Ignição",
+                  "expectation": "DESLIGADO (A e B)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Chave Mestre",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Seletor de Combustível",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bombas de Combustível",
+                  "expectation": "AMBAS DESLIGADAS (Principal e Auxiliar)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Falha do Motor Imediatamente Após a Decolagem (3.3.2)",
+              "items": [
+                { "prompt": "Velocidade Aerodinâmica",
+                  "expectation": "72 KIAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Área de Pouso",
+                  "expectation": "LOCALIZAR (Área Livre)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Flaps",
+                  "expectation": "CONFORME NECESSÁRIO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bombas de Combustível",
+                  "expectation": "AMBAS DESLIGADAS (Principal e Auxiliar)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Seletor de Combustível",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Circuitos de Ignição",
+                  "expectation": "DESLIGADO (A e B)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "antes do toque -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Chave Mestre",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Os flaps e o trim do profundor não funcionarão com a chave mestre desligada, pois são alimentados pelo barramento principal. Realizar a seleção final de flaps e trim antes de desligar a chave mestre.",
+                  "type": "ITEM_WARNING",
+                  "centered": true
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Falha do Motor Durante o Voo (3.3.3)",
+              "items": [
+                { "prompt": "Velocidade Aerodinâmica",
+                  "expectation": "72 KIAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Área de Pouso",
+                  "expectation": "ÁREA LIVRE",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Partida Aérea",
+                  "expectation": "INICIAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Se o motor reiniciar com sucesso -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Continuar",
+                  "expectation": "PROSSEGUIR COM CAUTELA",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Pousar",
+                  "expectation": "O MAIS RÁPIDO POSSÍVEL",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Se o motor não conseguir religar -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Pousar",
+                  "expectation": "POUSO FORÇADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Reacionamento em vôo (3.3.4)",
+              "items": [
+                { "prompt": "Chave Mestre",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Circuitos de Ignição",
+                  "expectation": "LIGADO (A e B)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Chave de Backup da ECU",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bombas de Combustível",
+                  "expectation": "AMBAS LIGADAS (Principal e Auxiliar)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Seletor de Combustível",
+                  "expectation": "ALTERNAR (exceto se o 2º tanque estiver vazio)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Manete do Motor",
+                  "expectation": "VERIFICAR MOVIMENTO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Manete do Motor",
+                  "expectation": "POSIÇÃO CENTRAL",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Motor de Partida",
+                  "expectation": "ACIONAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Uma partida aérea é possível com a hélice em autorotação e a Chave de Backup da ECU LIGADA. O motor de partida também pode ser utilizado enquanto a hélice está em autorotação, se necessário.",
+                  "type": "ITEM_NOTE",
+                  "centered": true
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Rotação Irregular do Motor (3.3.5)",
+              "items": [
+                { "prompt": "Circuitos de Ignição",
+                  "expectation": "LIGADO (A e B)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Manete do Motor",
+                  "expectation": "VERIFICAR POSIÇÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Chave de Backup da ECU",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Quantidade de Combustível",
+                  "expectation": "VERIFICAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Seletor de Combustível",
+                  "expectation": "ALTERNAR (exceto se o 2º tanque estiver vazio)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bombas de Combustível",
+                  "expectation": "AMBAS LIGADAS (Principal e Auxiliar)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Óleo - Pressão",
+                  "expectation": "VERIFICAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Óleo - Temperatura",
+                  "expectation": "VERIFICAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Arrefecimento - Temperatura",
+                  "expectation": "VERIFICAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "EGT - Temperatura",
+                  "expectation": "VERIFICAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Se o motor continuar operando de forma irregular -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Pousar",
+                  "expectation": "O MAIS RÁPIDO POSSÍVEL",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Baixa Pressão de Combustível (3.3.6)",
+              "items": [
+                { "prompt": "Quantidade de Combustível",
+                  "expectation": "VERIFICAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Seletor de Combustível",
+                  "expectation": "ALTERNAR (exceto se o 2º tanque estiver vazio)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bombas de Combustível",
+                  "expectation": "AMBAS LIGADAS (Principal e Auxiliar)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bomba de Pressurização",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Se a pressão de combustível permanecer baixa -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Manete do Motor",
+                  "expectation": "DIMINUIR SE POSSÍVEL",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Se a pressão de combustível permanecer baixa -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Pousar",
+                  "expectation": "O MAIS RÁPIDO POSSÍVEL",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Baixa Pressão de Óleo (3.3.7)",
+              "items": [
+                { "prompt": "Óleo - Temperatura",
+                  "expectation": "VERIFICAR (MÁX. 120°C)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Se a temperatura do óleo estiver alta ou crescente -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Velocidade Aerodinâmica",
+                  "expectation": "72 KIAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "72 KIAS é a velocidade em que a aeronave é mais eficiente.",
+                  "type": "ITEM_NOTE",
+                  "indent": 2
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Se a pressão de óleo permanecer baixa ou a temperatura permanecer alta/crescente -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Pousar",
+                  "expectation": "O MAIS RÁPIDO POSSÍVEL",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Permanecer vigilante para uma possível falha iminente do motor.",
+                  "type": "ITEM_NOTE",
+                  "indent": 2
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Alta Temperatura do Óleo (3.3.8)",
+              "items": [
+                { "prompt": "Velocidade Aerodinâmica",
+                  "expectation": "72 KIAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "72 KIAS é a velocidade em que a aeronave é mais eficiente.",
+                  "type": "ITEM_NOTE",
+                  "indent": 2
+                },
+                { "prompt": "Manete do Motor",
+                  "expectation": "MÍNIMO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Se normalizado",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Pousar",
+                  "expectation": "O MAIS RÁPIDO POSSÍVEL",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Se ainda estiver alta",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Pouso Forçado",
+                  "expectation": "EXECUTAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            }
+          ],
+          "category": "emergency"
+        },
+        { "title": "Procedimentos de Pouso de Emergência (3.4)",
+          "checklists": [
+            { "title": "Pouso de Emergência sem Potência do Motor (3.4.1)",
+              "items": [
+                { "prompt": "Velocidade Aerodinâmica",
+                  "expectation": "72 KIAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Local de Pouso",
+                  "expectation": "LOCALIZAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Partida Aérea do Motor",
+                  "expectation": "TENTAR (se o tempo permitir)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Não perder a noção do tempo tentando religar o motor. Tentar um número limitado de vezes, dependendo da altitude onde ocorreu a falha. Concentrar-se na melhor área de pouso possível e na aproximação para ela.",
+                  "type": "ITEM_NOTE",
+                  "centered": true
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Se o motor não conseguir religar -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Bombas de Combustível",
+                  "expectation": "AMBAS DESLIGADAS (Principal e Auxiliar)",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Circuitos de Ignição",
+                  "expectation": "DESLIGADO (A e B)",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Seletor de Combustível",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Manete do Motor",
+                  "expectation": "FECHADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Flaps",
+                  "expectation": "TOTAL (antes do toque)",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Comunicação",
+                  "expectation": "REPORTAR SE O TEMPO PERMITIR",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Passageiros",
+                  "expectation": "REALIZAR BRIEFING",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Imediatamente Antes do Toque -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Chave Mestre",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "type": "ITEM_SPACE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Pouso Precaucional com Potência do Motor (3.4.2)",
+              "items": [
+                { "prompt": "Velocidade Aerodinâmica",
+                  "expectation": "75 KIAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Flaps",
+                  "expectation": "DECOLAGEM",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bombas de Combustível",
+                  "expectation": "AMBAS LIGADAS (Principal e Auxiliar)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Área de Pouso",
+                  "expectation": "INSPECIONAR (conforme procedimento)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "na aproximação final -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Flaps",
+                  "expectation": "TOTAL",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Velocidade Aerodinâmica",
+                  "expectation": "65 KIAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Freios",
+                  "expectation": "APLICAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "quando a aeronave estiver sob controle -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Circuitos de Ignição",
+                  "expectation": "DESLIGADO (A e B)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Seletor de Combustível",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Chave Mestre",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Pouso na Água (3.4.3)",
+              "items": [
+                { "prompt": "Velocidade Aerodinâmica",
+                  "expectation": "65 KIAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Flaps",
+                  "expectation": "TOTAL",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Descida",
+                  "expectation": "ESTABELECER 50 pés e min",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Direção",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Vento Forte",
+                  "expectation": "CONTRA O VENTO",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Vento Fraco",
+                  "expectation": "PARALELO ÀS ONDAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Passageiros",
+                  "expectation": "REALIZAR BRIEFING",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Capota",
+                  "expectation": "ABERTO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Velocidade de Toque",
+                  "expectation": "MAIS LENTO POSSÍVEL",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Passageiros",
+                  "expectation": "EVACUAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Coletes Salva-Vidas / Bote",
+                  "expectation": "INFLAR SE DISPONÍVEL",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Pouso com Pneu Furado / Roda Danificada (3.4.4)",
+              "items": [
+                { "prompt": "Aproximação",
+                  "expectation": "NORMAL",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Velocidade Aerodinâmica",
+                  "expectation": "65 KIAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Velocidade Aerodinâmica no Flare",
+                  "expectation": "MAIS LENTO POSSÍVEL (+ e - 60 KIAS)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Se o trem de nariz estiver danificado/furado -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Trem de Nariz",
+                  "expectation": "FORA DO SOLO O MÁXIMO POSSÍVEL",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Usar o profundor para manter o trem de nariz fora do solo",
+                  "type": "ITEM_PLAINTEXT",
+                  "indent": 2
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "O Sling TSi pousa dentro do efeito solo pois as asas ficam próximas ao solo. Antecipar um aumento na sustentação logo antes do toque, a menos que o aerofólio entre em estol antes de entrar no efeito solo.",
+                  "type": "ITEM_NOTE",
+                  "centered": true
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Descida de Emergência",
+              "items": [
+                { "prompt": "Manche",
+                  "expectation": "PICAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Manete do Motor",
+                  "expectation": "MÍNIMO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Velocidade Aerodinâmica Indicada",
+                  "expectation": "ABAIXO DE VNE",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Altitude",
+                  "expectation": "DESCER PARA ALTITUDE SEGURA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Manche",
+                  "expectation": "NIVELAR A AERONAVE SUAVEMENTE",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            }
+          ],
+          "category": "emergency"
+        },
+        { "title": "Fumaça e Incêndios (3.5)",
+          "checklists": [
+            { "title": "Incêndio no Motor no Solo Durante a Partida (3.5.1)",
+              "items": [
+                { "prompt": "Motor de Partida",
+                  "expectation": "SOLTAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Seletor de Combustível",
+                  "expectation": "FECHAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bombas de Combustível",
+                  "expectation": "AMBAS DESLIGADAS (Principal e Auxiliar)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Manete do Motor",
+                  "expectation": "MÍNIMO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Circuitos de Ignição",
+                  "expectation": "DESLIGADO (A e B)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Chave Mestre",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Extintor de Incêndio",
+                  "expectation": "RECUPERAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Abandonar a Aeronave",
+                  "type": "ITEM_CHALLENGE"
+                },
+                { "prompt": "Extinguir o Incêndio",
+                  "type": "ITEM_CHALLENGE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Incêndio no Motor no Solo (3.5.2)",
+              "items": [
+                { "prompt": "Aquecimento da Cabine",
+                  "expectation": "FECHAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Seletor de Combustível",
+                  "expectation": "FECHAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bombas de Combustível",
+                  "expectation": "AMBAS DESLIGADAS (Principal e Auxiliar)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Manete do Motor",
+                  "expectation": "MÍNIMO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Circuitos de Ignição",
+                  "expectation": "DESLIGADO (A e B)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Chave Mestre",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Extintor de Incêndio",
+                  "expectation": "RECUPERAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Abandonar a Aeronave",
+                  "type": "ITEM_CHALLENGE"
+                },
+                { "prompt": "Extinguir o Incêndio",
+                  "type": "ITEM_CHALLENGE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Incêndio no Motor Durante a Corrida de Decolagem (3.5.3)",
+              "items": [
+                { "prompt": "Manete do Motor",
+                  "expectation": "MÍNIMO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Aquecimento da Cabine",
+                  "expectation": "FECHAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Freios",
+                  "expectation": "APLICAR ATÉ PARAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Seletor de Combustível",
+                  "expectation": "FECHAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bombas de Combustível",
+                  "expectation": "AMBAS DESLIGADAS (Principal e Auxiliar)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Circuitos de Ignição",
+                  "expectation": "DESLIGADO (A e B)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Chave Mestre",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Extintor de Incêndio",
+                  "expectation": "RECUPERAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Abandonar a Aeronave",
+                  "type": "ITEM_CHALLENGE"
+                },
+                { "prompt": "Extinguir o Incêndio",
+                  "type": "ITEM_CHALLENGE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Incêndio no Motor em Voo (3.5.4)",
+              "items": [
+                { "prompt": "Aquecimento da Cabine",
+                  "expectation": "FECHAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Ventilação da Cabine",
+                  "expectation": "ABERTO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Manete do Motor",
+                  "expectation": "MÍNIMO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bombas de Combustível",
+                  "expectation": "AMBAS DESLIGADAS (Principal e Auxiliar)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bomba de Pressurização",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Circuitos de Ignição",
+                  "expectation": "DESLIGADO (A e B)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Chave Mestre",
+                  "expectation": "DESLIGADA (Após Acionamento dos Flaps)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Seletor de Combustível",
+                  "expectation": "FECHAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Velocidade Aerodinâmica",
+                  "expectation": "AUMENTAR PARA VNE (155 KIAS)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Pouso Forçado",
+                  "expectation": "CONFORME 3.4.1",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Incêndio Elétrico em Voo (3.5.5)",
+              "items": [
+                { "prompt": "Chave Mestre",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Se a localização/fonte do incêndio puder ser determinada, a energia elétrica pode ser removida daquele circuito pelo disjuntor de isolamento. Isso eliminará a necessidade de desligar a chave mestre.",
+                  "type": "ITEM_NOTE",
+                  "indent": 1
+                },
+                { "prompt": "O EFIS e os equipamentos associados (iBox, RDAC, etc.) ainda podem ser alimentados pelo circuito de backup de bateria do EFIS quando a chave mestre estiver desligada, desde que o sistema EFIS não seja a fonte do incêndio elétrico.",
+                  "type": "ITEM_NOTE",
+                  "indent": 1
+                },
+                { "prompt": "Circuitos de Ignição",
+                  "expectation": "MANTER LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Chaves de Instrumentos",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Extintor",
+                  "expectation": "UTILIZAR (Se possível)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Ventilar a Cabine",
+                  "expectation": "ABRIR VENTILAÇÕES",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Se o incêndio for extinto -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Pouso Precaucional",
+                  "expectation": "EXECUTAR (O mais rápido possível)",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Se o incêndio NÃO for extinto -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Pouso Forçado",
+                  "expectation": "EXECUTAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Incêndio na Cabine (3.5.6)",
+              "items": [
+                { "prompt": "Chave Mestre",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Aquecimento da Cabine",
+                  "expectation": "FECHAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Ventilar a Cabine",
+                  "expectation": "ABRIR VENTILAÇÕES",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Extintor",
+                  "expectation": "UTILIZAR (Se possível)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Se o incêndio for extinto -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Pouso Precaucional",
+                  "expectation": "CONSIDERAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Se o incêndio NÃO for extinto -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Pouso Forçado",
+                  "expectation": "EXECUTAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            }
+          ],
+          "category": "emergency"
+        },
+        { "title": "Recuperação de Parafuso (3.6)",
+          "checklists": [
+            { "title": "Técnica de Recuperação de Parafuso Não Intencional (3.6)",
+              "items": [
+                { "prompt": "Entradas em parafuso intencionais são proibidas.",
+                  "type": "ITEM_WARNING",
+                  "centered": true
+                },
+                { "prompt": "Manete do Motor",
+                  "expectation": "MÍNIMO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Controle Lateral",
+                  "expectation": "AILERONS NEUTROS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Controle de Guinada",
+                  "expectation": "LEME TOTALMENTE NA DIREÇÃO OPOSTA AO PARAFUSO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "quando a rotação parar -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Controle de Guinada",
+                  "expectation": "LEME NEUTRO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Controle Longitudinal",
+                  "expectation": "RECUPERAR DO MERGULHO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Não exceder VNE ou os limites de fator de carga durante o mergulho de recuperação.",
+                  "type": "ITEM_NOTE",
+                  "centered": true
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "No improvável evento de a aeronave entrar em parafuso plano e os passos acima não resultarem na recuperação do controle, os seguintes passos podem ser implementados:",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Manete do Motor",
+                  "expectation": "MÍNIMO",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Controle Lateral",
+                  "expectation": "AILERONS NEUTROS",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Controle Longitudinal",
+                  "expectation": "TOTALMENTE PICADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Controle de Guinada",
+                  "expectation": "LEME TOTALMENTE NA DIREÇÃO OPOSTA AO PARAFUSO",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "quando a rotação parar -",
+                  "type": "ITEM_TITLE",
+                  "indent": 1
+                },
+                { "prompt": "Controle de Guinada",
+                  "expectation": "LEME NEUTRO",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Controle Longitudinal",
+                  "expectation": "RECUPERAR DO MERGULHO",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            }
+          ],
+          "category": "emergency"
+        },
+        { "title": "Outras Emergências (3.7)",
+          "checklists": [
+            { "title": "Falha do Governandor da Hélice (3.7.1)",
+              "items": [
+                { "prompt": "Rotação do Motor",
+                  "expectation": "PREVENIR EXCESSO DE VELOCIDADE",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Modo da Hélice",
+                  "expectation": "SELECIONAR MANUAL (Man)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Passo da Hélice",
+                  "expectation": "VERIFICAR FUNCIONAMENTO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Se o controle de passo da hélice ainda estiver disponível -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Passo da Hélice",
+                  "expectation": "AJUSTAR CONFORME NECESSÁRIO",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "A seleção de um passo de hélice muito fino combinado com ajustes elevados de manete pode resultar em excesso de rotação do motor.",
+                  "type": "ITEM_CAUTION",
+                  "centered": true
+                },
+                { "prompt": "A seleção de um passo de hélice muito grosso pode resultar na incapacidade do motor de manter a rotação desejada, mesmo com a manete totalmente aberta.",
+                  "type": "ITEM_CAUTION",
+                  "centered": true
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Se o controle de passo da hélice estiver indisponível -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Chave da Hélice",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Se a falha resultar em passo dentro da faixa de voo -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Prosseguir",
+                  "expectation": "COM CAUTELA",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Se a falha resultar em passo fora da faixa de voo -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Pouso Precaucional",
+                  "expectation": "EXECUTAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Se a falha ocorreu com o passo da hélice ajustado em qualquer posição diferente do limite de passo fino, a potência total da combinação motor/hélice pode não estar disponível em baixas velocidades. Isso deve ser considerado durante a aproximação e o pouso.",
+                  "type": "ITEM_CAUTION",
+                  "centered": true
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Vibração / Funcionamento Irregular do Motor (3.7.2)",
+              "items": [
+                { "prompt": "Se ocorrerem vibrações anormais no motor:",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Combustível",
+                  "expectation": "VERIFICAR QUANTIDADE",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bombas de Combustível",
+                  "expectation": "AMBAS LIGADAS (Principal e Auxiliar)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bomba de Pressurização",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Seletor de Combustível",
+                  "expectation": "ALTERNAR (exceto se o 2º tanque estiver vazio)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Backup da ECU",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Rotação do Motor",
+                  "expectation": "AJUSTAR ONDE A VIBRAÇÃO FOR MENOR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Pouso Precaucional",
+                  "expectation": "EXECUTAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Falha do EFIS (3.7.3)",
+              "items": [
+                { "prompt": "Se o EFIS travar, falhar ou reagir incorretamente em voo:",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Voo Reto e Nivelado",
+                  "expectation": "MANTER",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Por meio de referências visuais do solo e outros instrumentos",
+                  "type": "ITEM_NOTE",
+                  "indent": 1
+                },
+                { "prompt": "Chave Principal do EFIS",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Chave EFIS Backup",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Aguardar 3 segundos -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Chave Principal do EFIS",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Chave EFIS Backup",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Aguardar pelo menos 15 segundos para o sistema inicializar -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Funcionalidade do EFIS",
+                  "expectation": "CONFIRMAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Se o EFIS ainda não estiver funcionando corretamente -",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Pousar",
+                  "expectation": "O MAIS RÁPIDO POSSÍVEL",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Executar o pouso na primeira oportunidade segura e providenciar o reparo do instrumento.",
+                  "type": "ITEM_NOTE",
+                  "indent": 2
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Falha do Alternador A (3.7.4.1)",
+              "items": [
+                { "prompt": "Uma falha no alternador A/B é indicada pelas luzes de aviso de circuito.",
+                  "type": "ITEM_PLAINTEXT",
+                  "centered": true
+                },
+                { "prompt": "A falha do Alternador A é evidenciada pela iluminação contínua da luz de aviso do circuito A e pela queda da tensão do barramento principal para a tensão nominal da bateria (+/- 12,5V).",
+                  "type": "ITEM_PLAINTEXT",
+                  "centered": true
+                },
+                { "prompt": "Circuito A",
+                  "expectation": "CICLAR CHAVE (Deslig. 2 seg. Liga)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Circuito A",
+                  "expectation": "VERIFICAR LUZ DE AVISO APAGADA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Se a luz de aviso do Circuito A ainda estiver acesa - assumir falha do alternador.",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "ECU Backup",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "EFIS Backup",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Equipamentos Não Essenciais",
+                  "expectation": "TODOS DESLIGADOS",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Neste cenário, não há carregamento da bateria principal, que deve ser preservada caso haja uma falha subsequente do Alternador B. Equipamentos não essenciais incluem luzes, piloto automático, EFIS secundário, etc.",
+                  "type": "ITEM_NOTE",
+                  "indent": 2
+                },
+                { "prompt": "Brilho do EFIS",
+                  "expectation": "MÍNIMO",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Comunicação por Rádio",
+                  "expectation": "MÍNIMO",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Pousar",
+                  "expectation": "O MAIS RÁPIDO POSSÍVEL",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "A ECU normalmente usa o GEN A para operar o motor, e o GEN B é usado para carregar a bateria principal. Se o GEN A falhar, o GEN B é repriorizado para operar apenas o motor e a bateria principal não será mais carregada.",
+                  "type": "ITEM_NOTE",
+                  "centered": true
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Falha do Alternador B (3.7.4.2)",
+              "items": [
+                { "prompt": "Uma falha no alternador A/B é indicada pelas luzes de aviso de circuito.",
+                  "type": "ITEM_PLAINTEXT",
+                  "centered": true
+                },
+                { "prompt": "A falha do Alternador B é evidenciada pela iluminação contínua da luz de aviso do circuito B e pela queda da tensão do barramento principal para a tensão nominal da bateria (+/- 12,5V).",
+                  "type": "ITEM_PLAINTEXT",
+                  "centered": true
+                },
+                { "prompt": "Circuito B",
+                  "expectation": "CICLAR CHAVE (Deslig. 2 seg. e Liga)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Circuito B",
+                  "expectation": "VERIFICAR LUZ DE AVISO APAGADA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Se a luz de aviso do Circuito B ainda estiver acesa - assumir falha do alternador.",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "ECU Backup",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "EFIS Backup",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Equipamentos Não Essenciais",
+                  "expectation": "TODOS DESLIGADOS",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Neste cenário, não há carregamento da bateria principal, que deve ser preservada caso haja uma falha subsequente do Alternador A. Equipamentos não essenciais incluem luzes, piloto automático, EFIS secundário, etc.",
+                  "type": "ITEM_NOTE",
+                  "indent": 2
+                },
+                { "prompt": "Comunicação por Rádio",
+                  "expectation": "MÍNIMO",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Pousar",
+                  "expectation": "O MAIS RÁPIDO POSSÍVEL",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Falha Dupla dos Alternadores A e B (3.7.4.3)",
+              "items": [
+                { "prompt": "Isso resultará na parada do motor quando a bateria principal descarregar, pois não haverá energia disponível para a ECU e consequentemente para as bombas de combustível. A ECU deve ser alimentada pela bateria principal para o motor funcionar.",
+                  "type": "ITEM_PLAINTEXT",
+                  "centered": true
+                },
+                { "prompt": "ECU Backup",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "EFIS Backup",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bateria Principal",
+                  "expectation": "VERIFICAR TENSÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Esperar falha dos sistemas quando a tensão da bateria cair abaixo de 10 Volts. Isso inclui a ECU e as bombas de combustível, o que resultará em falha do motor.",
+                  "type": "ITEM_NOTE",
+                  "indent": 1
+                },
+                { "prompt": "Equipamentos Não Essenciais",
+                  "expectation": "TODOS DESLIGADOS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Comunicação por Rádio",
+                  "expectation": "MÍNIMO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Pouso Precaucional",
+                  "expectation": "O MAIS RÁPIDO POSSÍVEL",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "O motor pode funcionar com a bateria principal por aproximadamente 30 minutos após uma falha dupla dos alternadores A e B, a partir de carga plena com todos os equipamentos auxiliares desligados. O motor falhará por falta de combustível, pois as bombas de combustível param quando a tensão é muito baixa.",
+                  "type": "ITEM_WARNING",
+                  "centered": true
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Falha de Energia do Barramento Principal (3.7.5)",
+              "items": [
+                { "prompt": "Consultar a seção 7.14.4 Barramento Principal para uma lista dos equipamentos afetados pela perda de energia do barramento principal.",
+                  "type": "ITEM_PLAINTEXT",
+                  "centered": true
+                },
+                { "prompt": "ECU Backup",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "EFIS Backup",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Pousar",
+                  "expectation": "O MAIS RÁPIDO POSSÍVEL",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "A perda de energia do barramento principal não resultará na parada da bomba de combustível principal, mas o motor de partida ficará indisponível/inoperante. Se o motor parar, ele terá que ser reiniciado por meio da rotação da hélice impulsionada pela corrente de ar (autorotação).",
+                  "type": "ITEM_CAUTION",
+                  "centered": true
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Sobretensão (3.7.6)",
+              "items": [
+                { "prompt": "EFIS Backup",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "EFIS principal",
+                  "expectation": "LIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Chave Mestre",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Pouso de Emergência",
+                  "expectation": "COM POTÊNCIA DO MOTOR - EXECUTAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Encontro Inadvertido com Gelo (3.7.7)",
+              "items": [
+                { "prompt": "Descida de Emergência",
+                  "expectation": "EXECUTAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Instrumentos do Motor",
+                  "expectation": "MONITORAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Indicador de Pressão de Combustível",
+                  "expectation": "VERIFICAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Bordos de Ataque e Superfícies de Controle",
+                  "expectation": "INSPECIONAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Pouso de Emergência",
+                  "expectation": "COM POTÊNCIA DO MOTOR - EXECUTAR",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            },
+            { "title": "Perda dos Comandos de Voo (3.7.8)",
+              "items": [
+                { "prompt": "Manete do Motor",
+                  "expectation": "MÍNIMO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Ignição (CIRCUITOS A e B)",
+                  "expectation": "DESLIGADO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Rádio",
+                  "expectation": "TRANSMITIR \"MAYDAY\" em 121 e 5 MHz COM LOCALIZAÇÃO",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Transponder",
+                  "expectation": "AJUSTAR PARA 7700",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Paraquedas Balístico",
+                  "expectation": "EXECUTAR PROCEDIMENTO DE ACIONAMENTO DE EMERGÊNCIA",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "type": "ITEM_SPACE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            }
+          ],
+          "category": "emergency"
+        }
+      ]
+    },
+    { "title": "Referências",
+      "groups": [
+        { "title": "Velocidades de Referência (KIAS) (2.2/3.2/4.2)",
+          "checklists": [
+            { "title": "Velocidades de Referência (KIAS)",
+              "items": [
+                { "prompt": "Vs0 (Velocidade de Estol Sujo)",
+                  "expectation": "48",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Vs1 (Velocidade de Estol Limpo)",
+                  "expectation": "57",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Vr (Velocidade de Rotação)",
+                  "expectation": "55",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Vlof (Velocidade de Decolagem: campo mole)",
+                  "expectation": "61",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Vref (Velocidade na Cabeceira a 50 pés)",
+                  "expectation": "65",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Vx (Melhor Ângulo de Subida)",
+                  "expectation": "65",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Vy (Melhor Taxa de Subida)",
+                  "expectation": "75",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Vbg (Melhor Planeio)",
+                  "expectation": "72",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Razão de planeio 12:1, 600 fpm, 2,0 NM = 3,7 km por 1.000 pés de altura.",
+                  "type": "ITEM_PLAINTEXT",
+                  "indent": 1
+                },
+                { "prompt": "Vreat (Mín. para reinício do motor)",
+                  "expectation": "75",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Vfe (Flaps Estendidos)",
+                  "expectation": "85",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Vapp (Velocidades de Aproximação)",
+                  "expectation": "70-85",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Vcc (Subida de Cruzeiro)",
+                  "expectation": "85-100",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Va (Velocidade de Manobra)",
+                  "expectation": "108",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Vno (Velocidade de Operação Normal)",
+                  "expectation": "135",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Vh (Velocidade Máxima em Voo Nivelado)",
+                  "expectation": "140",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Vne (Velocidade Nunca Exceder)",
+                  "expectation": "155",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            }
+          ],
+          "category": "normal"
+        },
+        { "title": "Velocidades de Estol",
+          "checklists": [
+                    { "title": "Velocidades de Estol",
+              "items": [
+                { "prompt": "INCLINAÇÃO (graus)",
+                  "expectation": "KIAS em: g = 1 e = 1 e 5",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "0",
+                  "expectation": "56 e 69",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "10",
+                  "expectation": "57 e 69",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "20",
+                  "expectation": "58 e 71",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "30",
+                  "expectation": "62 e 75",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "40",
+                  "expectation": "64 e 79",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "50",
+                  "expectation": "73 e 90",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "60",
+                  "expectation": "83 e 101",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            }
+          ],
+          "category": "normal"
+        },
+        { "title": "Distâncias de Decolagem e Pouso (5.2)",
+          "checklists": [
+            { "title": "Distâncias de Decolagem e Pouso",
+              "items": [
+                { "prompt": "O desempenho nesta seção é válido para o peso máximo de decolagem de 950 kg (2.095 lb) e pistas de concreto/asfalto.",
+                  "type": "ITEM_PLAINTEXT",
+                  "centered": true
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Distâncias de Decolagem",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "Altitude-Densidade",
+                  "expectation": "Distância de Pista e Distância sobre Obstáculo de 15m (50 pés)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "MSL",
+                  "expectation": "220m (720') e 350m (1 e 150')",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "7,000'",
+                  "expectation": "300m (985') e 480m (1 e 575')",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "Distâncias de Pouso",
+                  "type": "ITEM_TITLE"
+                },
+                { "prompt": "MSL",
+                  "expectation": "150m (490') e 350m (1 e 150')",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "7,000'",
+                  "expectation": "250m (820') e 425m (1 e 395')",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "Componente Máxima de Vento Cruzado",
+                  "expectation": "15 kt",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Capacidade de Combustível e Autonomia",
+                  "expectation": "194 litros (úteis) e 6 horas",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Velocidade de Cruzeiro @ máx. ECO (MSL / 10.000 pés)",
+                  "expectation": "135 e 149 kt TAS",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "Peso máximo de decolagem / peso vazio",
+                  "expectation": "950 e 500 kg",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            }
+          ],
+          "category": "normal"
+        },
+        { "title": "Taxa de Subida (5.3)",
+          "checklists": [
+            { "title": "Taxa de Subida",
+              "items": [
+                { "prompt": "Valores válidos para potência máxima contínua a 5.500 RPM em Vy (75 KIAS).",
+                  "type": "ITEM_PLAINTEXT",
+                  "centered": true
+                },
+                { "prompt": "Altitude (pés, ISA)",
+                  "expectation": "Taxa de Subida (fpm)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "0'",
+                  "expectation": "800",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "1,000'",
+                  "expectation": "795",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "2,000'",
+                  "expectation": "785",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "3,000'",
+                  "expectation": "780",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "4,000'",
+                  "expectation": "770",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "6,000'",
+                  "expectation": "755",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "8,000'",
+                  "expectation": "740",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "10,000'",
+                  "expectation": "730",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "12,000'",
+                  "expectation": "715",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "14,000'",
+                  "expectation": "700",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "16,000'",
+                  "expectation": "685",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "18,000'",
+                  "expectation": "670",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            }
+          ],
+          "category": "normal"
+        },
+        { "title": "Barramento Principal (7.14.4)",
+          "checklists": [
+            { "title": "Barramento Principal (7.14.4)",
+              "items": [
+                { "prompt": "Quando a energia do barramento principal estiver indisponível/falhar, os seguintes equipamentos se tornarão inoperantes:",
+                  "type": "ITEM_PLAINTEXT",
+                  "centered": true
+                },
+                { "prompt": "Piloto Automático (incluindo servos)",
+                  "type": "ITEM_CHALLENGE"
+                },
+                { "prompt": "Flaps",
+                  "type": "ITEM_CHALLENGE"
+                },
+                { "prompt": "Rádio",
+                  "type": "ITEM_CHALLENGE"
+                },
+                { "prompt": "Transponder",
+                  "type": "ITEM_CHALLENGE"
+                },
+                { "prompt": "Luzes da Cabine",
+                  "type": "ITEM_CHALLENGE"
+                },
+                { "prompt": "Luzes estroboscópicas, de navegação, de pouso e de taxiamento",
+                  "type": "ITEM_CHALLENGE"
+                },
+                { "prompt": "EFIS (salvo se alimentado pelo backup de bateria do EFIS)",
+                  "type": "ITEM_CHALLENGE"
+                },
+                { "prompt": "Hélice (Funcionalidade VP)",
+                  "type": "ITEM_CHALLENGE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            }
+          ],
+          "category": "normal"
+        },
+        { "title": "Barramento Principal (7.14.4)",
+          "checklists": [
+            { "title": "Perda de Sensores (3.7.4.4)",
+              "items": [
+                { "prompt": "Os sensores do motor, por razões de redundância, são alimentados pelos circuitos A/B separadamente. Isso significa que se um dos dois circuitos falhar, um subconjunto dos sensores do motor também falhará.",
+                  "type": "ITEM_PLAINTEXT",
+                  "centered": true
+                },
+                { "prompt": "Falha de Circuito",
+                  "expectation": "Falha de Sensor Resultante",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "A",
+                  "expectation": "Temperatura do Líquido de Arrefecimento",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "A",
+                  "expectation": "Temperatura dos Gases de Escape",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "A",
+                  "expectation": "Temperatura Ambiente",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "A",
+                  "expectation": "Pressão Ambiente",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "A",
+                  "expectation": "Posição da Manete",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "type": "ITEM_SPACE"
+                },
+                { "prompt": "B",
+                  "expectation": "Temperatura do Óleo",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                },
+                { "prompt": "B",
+                  "expectation": "Pressão de Óleo",
+                  "type": "ITEM_CHALLENGE_RESPONSE",
+                  "indent": 1
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            }
+          ],
+          "category": "normal"
+        },
+        { "title": "Barramento Principal (7.14.4)",
+          "checklists": [
+            { "title": "Posição da Manete na Partida (4.4.2.1)",
+              "items": [
+                { "prompt": "Como o motor tende a vibrar significativamente com ajustes baixos de manete na partida, iniciar o motor com a manete ajustada com base na temperatura do óleo para atingir aproximadamente 2.000 RPM.",
+                  "type": "ITEM_PLAINTEXT",
+                  "centered": true
+                },
+                { "prompt": "Temperatura do Óleo (°C)",
+                  "expectation": "Posição da Manete (%)",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "-20°",
+                  "expectation": "60%",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "-15°",
+                  "expectation": "60%",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "-10°",
+                  "expectation": "55%",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "-5°",
+                  "expectation": "50%",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "0°",
+                  "expectation": "45%",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "5°",
+                  "expectation": "45%",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "10°",
+                  "expectation": "40%",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "15°",
+                  "expectation": "40%",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                },
+                { "prompt": "20°",
+                  "expectation": "40%",
+                  "type": "ITEM_CHALLENGE_RESPONSE"
+                }
+              ],
+              "completionAction": "ACTION_GO_TO_NEXT_CHECKLIST"
+            }
+          ],
+          "category": "normal"
+        }
+      ]
+    }
+  ]
+}

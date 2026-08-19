@@ -1,0 +1,42 @@
+# Publica a pasta web/ (o PWA) no GitHub Pages, em HTTPS.
+#
+# Depois do primeiro push, ligue em Settings -> Pages -> Source: GitHub Actions.
+# O endereco sai como https://<usuario>.github.io/<repositorio>/ — os caminhos
+# do app sao todos relativos, entao ele funciona em subpasta sem ajuste.
+name: Publicar PWA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'web/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:        # permite publicar na mao, pelo site do GitHub
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# uma publicacao por vez; a mais nova cancela a anterior
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.publicacao.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: web
+
+      - id: publicacao
+        uses: actions/deploy-pages@v4

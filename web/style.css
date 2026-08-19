@@ -1,0 +1,566 @@
+/* ══════════════════════════════════════════════════════════════════
+   Sling TSi — Leitor de Checklist (PWA)
+   Paleta e medidas do planejador, as mesmas da versao Tkinter.
+   ══════════════════════════════════════════════════════════════════ */
+:root {
+  --bg: #0d1117;
+  --panel: #161b22;
+  --panel2: #1b212b;
+  --line: #2a313c;
+  --text: #e6e9ef;
+  --muted: #8b93a3;
+  --red: #e63329;
+  --red-dim: #b3271f;
+  --field: #0f141b;
+  --ok: #2ea043;
+
+  --dots: #39414e;          /* guias pontilhadas entre desafio e resposta */
+  --response: #58a6ff;      /* resposta esperada do item */
+  --caution: #d29922;       /* ITEM_CAUTION */
+  --warning: #e63329;       /* ITEM_WARNING */
+  --listening: #3fb950;     /* indicador de escuta ativa */
+  --note-bg: #1b1216;       /* fundo do aviso */
+  --note-line: #3a1c1e;
+
+  --radius: 3px;
+  --pad-x: 16px;
+
+  --ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+        Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+          "Liberation Mono", monospace;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html { height: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--ui);
+  font-size: 15px;
+  line-height: 1.45;
+  overscroll-behavior-y: none;
+}
+
+/* ── esqueleto da pagina ─────────────────────────────────────────── */
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) 0
+           env(safe-area-inset-left);
+}
+
+.content {
+  flex: 1;
+  padding: 0 var(--pad-x) calc(24px + env(safe-area-inset-bottom));
+  max-width: 1120px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ── cabecalho ───────────────────────────────────────────────────── */
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px var(--pad-x);
+  max-width: 1120px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.bar h1 {
+  margin: 0;
+  min-width: 0;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bar .dash { color: var(--red); font-size: 17px; font-weight: 700; }
+.bar img.logo { height: 34px; width: auto; display: block; }
+
+/* ── botoes ──────────────────────────────────────────────────────── */
+button {
+  font: inherit;
+  color: inherit;
+  border: 0;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.btn {
+  background: var(--panel2);
+  white-space: nowrap;
+  color: var(--text);
+  padding: 11px 16px;
+  font-size: 14px;
+  border: 1px solid transparent;
+  transition: background .12s ease;
+}
+.btn:hover { background: var(--line); }
+.btn:active { background: var(--line); }
+
+.btn-primary {
+  background: var(--red);
+  color: #fff;
+  font-weight: 700;
+  padding: 11px 18px;
+  font-size: 14px;
+}
+.btn-primary:hover { background: var(--red-dim); }
+
+.btn.listening {
+  background: var(--field);
+  color: var(--listening);
+  border-color: var(--listening);
+}
+
+/* ── paineis (o .sec do site) ────────────────────────────────────── */
+.sec {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 13px 14px;
+  margin: 0 0 14px;
+}
+
+.sec.note { background: var(--note-bg); border-color: var(--note-line); }
+
+.sec-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 11px;
+}
+
+.sec-head::before {
+  content: "";
+  width: 3px;
+  height: 13px;
+  background: var(--red);
+  flex: none;
+}
+
+.sec-head span {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── linha de menu com o chevron ─────────────────────────────────── */
+.row-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  transition: background .12s ease, border-color .12s ease;
+}
+.row-btn:last-child { margin-bottom: 0; }
+.row-btn:hover, .row-btn:active {
+  background: var(--panel2);
+  border-color: var(--red);
+}
+
+.row-btn .label { flex: 1; min-width: 0; }
+.row-btn .name { display: block; font-size: 16px; }
+.row-btn .tag { display: block; font-size: 11px; color: var(--muted); }
+.row-btn .chev { color: var(--red); font-size: 20px; line-height: 1; }
+
+/* ── barra de controles da leitura ───────────────────────────────── */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 0 var(--pad-x) 12px;
+  max-width: 1120px;
+  width: 100%;
+  margin: 0 auto;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--bg);
+}
+
+.speed {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  min-width: 180px;
+  flex: 1;
+  max-width: 280px;
+}
+
+.speed label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+input[type="range"] {
+  flex: 1;
+  accent-color: var(--red);
+  background: transparent;
+}
+
+/* ── itens do checklist ──────────────────────────────────────────── */
+.item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 3px 0;
+}
+
+.item.indent { padding-left: 26px; }
+
+.item input[type="checkbox"] {
+  flex: none;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  align-self: center;
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--field);
+  border: 1.5px solid var(--line);
+  border-radius: 2px;
+}
+
+.item input[type="checkbox"]:checked {
+  background: var(--red);
+  border-color: var(--red);
+}
+
+/* o tique e desenhado a mao: o nativo nao aceita cor em todos os navegadores */
+.item input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 4px;
+  height: 9px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.item input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+
+.item .prompt { flex: 0 1 auto; min-width: 0; overflow-wrap: anywhere; }
+
+.item .leader {
+  flex: 1 1 24px;
+  min-width: 18px;
+  border-bottom: 2px dotted var(--dots);
+  transform: translateY(-5px);
+}
+
+.item .answer {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--response);
+  text-align: right;
+}
+
+.item.done .prompt, .item.done .answer { color: var(--muted); }
+
+.text-item {
+  font-style: italic;
+  padding: 4px 0;
+  color: var(--text);
+}
+.text-item.indent { padding-left: 26px; }
+.text-item.note, .text-item.plain { color: var(--muted); }
+.text-item.caution { color: var(--caution); }
+.text-item.warning { color: var(--warning); }
+.text-item.centered { text-align: center; }
+
+.spacer { border-top: 1px solid var(--line); margin: 8px 0; }
+
+.hint {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0 0 10px;
+}
+
+.status { font-size: 12px; color: var(--ok); min-height: 1.2em; margin-top: 6px; }
+.status.bad { color: var(--red); }
+
+.meta { white-space: pre-line; }
+
+/* ── telas estreitas: some com as guias pontilhadas ──────────────── */
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+
+  /* no celular a resposta so desce de linha quando nao couber ao lado */
+  .item { flex-wrap: wrap; }
+  .item .leader { display: none; }
+  .item .prompt { flex: 1 1 auto; }
+  .item .answer { flex: 0 1 auto; margin-left: auto; }
+
+  .speed { margin-left: 0; max-width: none; }
+}
+
+/* ── quem prefere menos animacao ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   PESO & BALANCEAMENTO
+   ══════════════════════════════════════════════════════════════════ */
+.bar-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+
+.picker {
+  font: inherit;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--panel2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 9px 12px;
+  max-width: 46vw;
+}
+
+/* ── campos ──────────────────────────────────────────────────────── */
+.field {
+  font: inherit;
+  font-family: var(--mono);
+  font-size: 14px;
+  width: 100%;
+  color: var(--text);
+  background: var(--field);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 9px 10px;
+}
+.field:focus { outline: none; border-color: var(--red); }
+.field.right { text-align: right; }
+
+.field-label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+/* ── combustivel na decolagem ────────────────────────────────────── */
+.sec.fuel { background: #1a1116; border-color: var(--note-line); }
+
+.fuel-head { display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px; }
+
+.fuel-title {
+  flex: 1;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.fuel-l { font-family: var(--mono); font-weight: 700; color: #d42020; }
+.fuel-kg { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+.fuel-slider { width: 100%; accent-color: #d42020; }
+
+.fuel-scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* ── tabela de composicao de massa ───────────────────────────────── */
+.wb-table { display: flex; flex-direction: column; }
+
+.wb-row {
+  display: grid;
+  grid-template-columns: 1fr 92px 92px 92px;
+  gap: 8px;
+  align-items: center;
+  padding: 6px 8px;
+  border-top: 1px solid var(--line);
+}
+
+.wb-row.head {
+  border-top: 0;
+  padding-bottom: 7px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.wb-row.head span:not(:first-child) { text-align: right; }
+
+.wb-row.total { background: #1c222b; }
+
+.wb-item { min-width: 0; }
+.wb-item b { font-weight: 400; }
+.wb-row.total .wb-item b { font-weight: 700; }
+.wb-item i { font-size: 11px; font-style: normal; color: var(--muted); margin-left: 5px; }
+
+.wb-num {
+  font-family: var(--mono);
+  font-size: 14px;
+  text-align: right;
+  white-space: nowrap;
+}
+.wb-num.muted { color: var(--muted); }
+.wb-num.strong { font-weight: 700; }
+.wb-num.bad { color: var(--red); }
+
+/* ── cartoes de resultado ────────────────────────────────────────── */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.card {
+  background: var(--panel2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 9px 8px;
+  text-align: center;
+}
+
+.card-cap {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.card-value { font-family: var(--mono); font-size: 23px; font-weight: 700; }
+.card-info { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+.badge {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  border-radius: var(--radius);
+  padding: 3px 10px;
+}
+.badge.ok { color: var(--ok); background: #182b1d; }
+.badge.ng { color: var(--red); background: #2b1614; }
+
+/* ── envelope de CG ──────────────────────────────────────────────── */
+.envelope-box { background: var(--panel); }
+
+/* o grafico foi desenhado para 630x400: cresce ate esse tamanho e para */
+.envelope { display: block; width: 100%; max-width: 630px; height: auto; margin: 0 auto; }
+
+/* ── barra de acoes ──────────────────────────────────────────────── */
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn.danger { color: var(--red); }
+
+/* ── caixas de dialogo ───────────────────────────────────────────── */
+.modal {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  color: var(--text);
+  padding: 0;
+  max-width: min(520px, 92vw);
+  width: 100%;
+}
+.modal::backdrop { background: rgba(0, 0, 0, .6); }
+
+.modal-box { padding: 14px; display: flex; flex-direction: column; gap: 8px; }
+.modal-text { margin: 0; }
+.modal-foot { display: flex; justify-content: flex-end; gap: 8px; margin-top: 6px; }
+
+.profile-list { display: flex; flex-direction: column; gap: 6px; max-height: 50vh; overflow: auto; }
+
+.profile-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  background: var(--panel2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 6px;
+}
+.profile-row .field { font-family: var(--ui); }
+
+/* ── telas estreitas ─────────────────────────────────────────────── */
+@media (max-width: 760px) {
+  .field-grid { grid-template-columns: repeat(2, 1fr); }
+  .cards { grid-template-columns: 1fr; }
+  .wb-row { grid-template-columns: 1fr 74px 74px 74px; gap: 6px; padding: 6px 4px; }
+  .wb-item b, .wb-item i { display: block; margin-left: 0; }
+  .wb-num, .field.right { font-size: 13px; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   MODO OFFLINE
+   ══════════════════════════════════════════════════════════════════ */
+.offline-pill {
+  display: none;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(10px + env(safe-area-inset-bottom));
+  z-index: 20;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--caution);
+  background: var(--panel2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 14px;
+  pointer-events: none;
+}
+body.offline .offline-pill { display: block; }
+
+/* aviso de progresso retomado */
+.resumed {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  background: var(--note-bg);
+  border: 1px solid var(--note-line);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  font-size: 14px;
+}
+.resumed span { flex: 1; min-width: 180px; }

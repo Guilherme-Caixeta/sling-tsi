@@ -1,0 +1,23 @@
+{
+  "name": "Sling TSi — Checklist",
+  "short_name": "Sling TSi",
+  "description": "Leitor de checklists do Sling TSi, com leitura em voz alta e comandos de voz em pt-BR.",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0d1117",
+  "theme_color": "#0d1117",
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    {
+      "src": "assets/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
